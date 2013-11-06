@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript">
+        function generateGraph(data){
+        $('#container').highcharts({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Monthly Average Temperature'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                //categories: [eval([$.get( "../monitoring.php?champ=date&limit=13")];
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                }
+            },
+            tooltip: {
+                enabled: false,
+                formatter: function() {
+                    return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: 'temperature',
+                data: data.temperature
+            },
+            {
+                name: 'temperature',
+                data: data.humidity
+            }]
+        });            
+        }
+    $(function () {
+        $.get('../monitoring.php?limit=50', function(data){
+            data = JSON.parse(data);
+            var values = {
+                temperature: [],
+                humidity: []
+            };
+            for(var i = 0 ; i < data.length; i++){
+                values.temperature.push(parseFloat(data[i].temperature));
+                values.humidity.push(parseFloat(data[i].humidity));
+            }
+            generateGraph(values);
+        });
+    });
+		</script>
+	</head>
+	<body>
+<script src="./Highcharts/js/highcharts.js"></script>
+<script src="./Highcharts/js/modules/exporting.js"></script>
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>

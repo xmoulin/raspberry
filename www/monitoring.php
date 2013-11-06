@@ -27,16 +27,30 @@ if (!empty($limit)) {
 if (!empty($offset)) {
 	$requete = $requete . " OFFSET $offset ";
 }
-print($requete);
 
 //on execute la requete
+//print($requete);
 $sth =  mysql_query($requete);
 
 $rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
-print json_encode($rows);
+//print_r($rows);
+//On format le resultat. Soit tous les champs separée par une virgule, soit tous le flux en json
+if (!empty($champ)) {
+	//foreach($rows as $element)
+	//On affiche le permier element pour pas avoir a gerer le ',' en fin de ligne
+	$values = array();
+	$n =count($rows);
+	for ($numero = 0; $numero < $n; $numero++)
+	{
+		array_push($values, intval($rows[$numero][$champ]));
+	}
+	echo json_encode($values);
+} else {
+	print json_encode($rows);
+}
 
 // on ferme la connexion à mysql 
 mysql_close(); 
