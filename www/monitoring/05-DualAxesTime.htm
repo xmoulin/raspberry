@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Rotate</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript">
+        function generateGraph(data){
+        $('#container').highcharts({
+            chart: {
+                type: 'spline',
+                zoomType: 'x',
+                //zoomType: 'xy'
+            },
+            title: {
+                text: 'Sonde de la maison'
+            },
+            subtitle: {
+                text: 'Temperature / Humidité - Zoomable'
+            },
+            xAxis: {
+                type: 'datetime',
+                categories: data.date,
+
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}°C',
+                    style: {
+                        color: '#AA4643'
+                    }
+                },
+                title: {
+                    text: 'Temperature',
+                    style: {
+                        color: '#AA4643'
+                    }
+                }
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Humidité',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                labels: {
+                    format: '{value} %',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                opposite: true
+            }],
+           tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 4,
+                    states: {
+                        hover: {
+                            lineWidth: 5
+                        }
+                    },
+                    marker: {
+                        enabled: false
+                    },
+                },
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                name: 'Temperature',
+                data: data.temperature,
+                color: '#AA4643',
+                tooltip: {
+                    valueSuffix: '°C'
+                }
+            },
+            {
+                name: 'Humidité',
+                type: 'area',
+                yAxis: 1,
+                color: '#4572A7',
+                data: data.humidity,
+                tooltip: {
+                    valueSuffix: '%'
+                }
+            }]
+        });            
+        }
+    $(function () {
+        $.get('../data-monitoring.php?limit=75', function(data){
+            data = JSON.parse(data);
+            var values = {
+                temperature: [],
+                temperatureEau: [],
+                humidity: [],
+                date: []
+            };
+
+            var datalength = data.length;
+            for(var i = 0 ; i < datalength; i++){
+                values.temperature.push(parseFloat(data[i].temperature));
+                values.temperatureEau.push(parseFloat(data[i].temperatureEau));
+                values.humidity.push(parseFloat(data[i].humidity));
+                values.date.push(Date.parse(data[i].date));
+            }
+            generateGraph(values);
+        });
+    });
+		</script>
+	</head>
+	<body>
+<script src="./Highcharts/js/highcharts.js"></script>
+<script src="./Highcharts/js/modules/exporting.js"></script>
+
+
+<div id="container" style="min-width: 310px; height: 800px; margin: 0 auto"></div>
+
+	</body>
+</html>
