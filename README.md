@@ -1,6 +1,5 @@
 raspberry
 =========
-
 code utile au raspberryPI (www, script python, etc)
 
 Service
@@ -14,3 +13,8 @@ Service REST disponibles
 	Retourne les 10 derniers enregistrements de température
 - http://localhost/data-monitoring2.php?limit=10&champs=temperature,date
 	Retourne les 10 derniers tuples température, date
+
+DataBase
+=========
+Fichier SQL utile pour la creation de la base de données
+Fichier CSV utile si des données doivent etre ajoutées
