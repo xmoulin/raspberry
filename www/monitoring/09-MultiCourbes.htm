@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
         function generateGraph(data){
-        $('#main-graph').highcharts({
+        $('#container').highcharts({
             chart: {
                 type: 'arearange',
                 zoomType: 'x'
@@ -44,27 +44,52 @@
                 enabled: false
             },
             series: [{
-                name: 'Temperature',
-                data: data.tupleTemp
+                name: 'Son',
+                data: data.tupleSon
             }, {
-                name: 'MoyTemperature',
+                name: 'MoyenneSon',
                 type: 'spline',
-                data: data.moyenneTemp       
+                data: data.moyenneSon       
+            }, {
+                name: 'Humidite',
+                type: 'spline',
+                data: data.humidity       
+            }, {
+                name: 'Lumiere',
+                type: 'spline',
+                data: data.lumiere       
+            }, {
+                name: 'Temperature',
+                type: 'spline',
+                data: data.temperature       
+            }, {
+                name: 'Gaz',
+                type: 'spline',
+                data: data.gaz       
             }]
         });            
         }
     $(function () {
-        $.get('../data-monitoring.php?limit=75', function(data){
+        $.get('../data-monitoring2.php?limit=100', function(data){
             data = JSON.parse(data);
             var values = {
-                tupleTemp: [],
-                moyenneTemp: []
+                tupleSon: [],
+                humidity: [],
+                lumiere: [],
+                temperature: [],
+                gaz: [],
+                moyenneSon: []
             };
 
             var datalength = data.length;
             for(var i = 0 ; i < datalength; i++){
-                values.tupleTemp.push([Date.parse(data[i].date), parseFloat(data[i].temperature), parseFloat(data[i].temperatureEau)]);
-                values.moyenneTemp.push([Date.parse(data[i].date), (parseFloat(data[i].temperature) + parseFloat(data[i].temperatureEau))/2]);
+                values.tupleSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMin), parseFloat(data[i].sonMax)]);
+                values.moyenneSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMoy)]);
+                values.humidity.push([Date.parse(data[i].date), parseFloat(data[i].humidity)]);
+                values.lumiere.push([Date.parse(data[i].date), parseFloat(data[i].lumiere)]);
+                values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
+                values.gaz.push([Date.parse(data[i].date), parseFloat(data[i].co2)]);
+
               }
             generateGraph(values);
         });
@@ -76,7 +101,7 @@
 <script src="./Highcharts/js/modules/exporting.js"></script>
 <script src="./Highcharts/js/highcharts-more.js"></script>
 
-<div id="main-graph" style="min-width: 310px; height: 800px; margin: 0 auto"></div>
+<div id="container" style="min-width: 310px; height: 800px; margin: 0 auto"></div>
 
 	</body>
 </html>
