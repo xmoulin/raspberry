@@ -14,10 +14,10 @@
                 //zoomType: 'xy'
             },
             title: {
-                text: 'Sonde de la maison'
+                text: 'Sonde de l\'open space'
             },
             subtitle: {
-                text: 'Temperature / Humidité - Zoomable'
+                text: 'Temperature / Humidité / Lumiere / Son - Zoomable'
             },
             xAxis: {
                 type: 'datetime',
@@ -30,11 +30,61 @@
                     }
                 }
             },
-           yAxis: {
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}°C',
+                    style: {
+                        color: '#AA4643'
+                    }
+                },
                 title: {
-                    text: null
+                    text: 'Temperature',
+                    style: {
+                        color: '#AA4643'
+                    }
                 }
-            },
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Humidité',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                labels: {
+                    format: '{value} %',
+                    style: {
+                        color: '#4572A7'
+                    }
+                }
+            }, { // Third yAxis
+                title: {
+                    text: 'Son',
+                    style: {
+                        color: '#660033'
+                    }
+                },
+                labels: {
+                    format: '{value} Db',
+                    style: {
+                        color: '#660033'
+                    }
+                },
+                opposite: true
+            }, { // Fourth yAxis
+                title: {
+                    text: 'Lumiere',
+                    style: {
+                        color: '#FF9900'
+                    }
+                },
+                labels: {
+                    format: '{value} Lux',
+                    style: {
+                        color: '#FF9900'
+                    }
+                },
+                opposite: true
+            }],
             tooltip: {
                 crosshairs: true,
                 shared: true,
@@ -45,27 +95,47 @@
             },
             series: [{
                 name: 'Son',
-                data: data.tupleSon
+                data: data.tupleSon,
+                yAxis: 2,
+                color: '#FF99FF',
+                tooltip: {
+                    valueSuffix: 'Db'
+                }
             }, {
                 name: 'MoyenneSon',
                 type: 'spline',
-                data: data.moyenneSon       
+                data: data.moyenneSon,
+                yAxis: 2,
+                color: '#660033',
+                tooltip: {
+                    valueSuffix: 'Db'
+                }       
             }, {
                 name: 'Humidite',
                 type: 'spline',
-                data: data.humidity       
+                yAxis: 1,
+                color: '#4572A7',
+                data: data.humidity,
+                tooltip: {
+                    valueSuffix: '%'
+                }
             }, {
                 name: 'Lumiere',
                 type: 'spline',
-                data: data.lumiere       
+                yAxis: 3,
+                color: '#FF9900',
+                data: data.lumiere,
+                tooltip: {
+                    valueSuffix: 'Lux'
+                }     
             }, {
                 name: 'Temperature',
                 type: 'spline',
-                data: data.temperature       
-            }, {
-                name: 'Gaz',
-                type: 'spline',
-                data: data.gaz       
+                color: '#AA4643',
+                data: data.temperature,       
+                tooltip: {
+                    valueSuffix: '°C'
+                }
             }]
         });            
         }
@@ -77,7 +147,6 @@
                 humidity: [],
                 lumiere: [],
                 temperature: [],
-                gaz: [],
                 moyenneSon: []
             };
 
@@ -88,8 +157,6 @@
                 values.humidity.push([Date.parse(data[i].date), parseFloat(data[i].humidity)]);
                 values.lumiere.push([Date.parse(data[i].date), parseFloat(data[i].lumiere)]);
                 values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
-                values.gaz.push([Date.parse(data[i].date), parseFloat(data[i].co2)]);
-
               }
             generateGraph(values);
         });
