@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>
+    Jumbotron Template for Bootstrap
+  </title>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/main2.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+  <script type="text/javascript">
+  $(function () {
+    $.get('../data-monitoring2.php?limit=100', function(data){
+      data = JSON.parse(data);
+      var values = {
+        tupleSon: [],
+        humidity: [],
+        lumiere: [],
+        temperature: [],
+        moyenneSon: []
+      };
+      var lastValues = {
+        tupleSon: [],
+        humidity: [],
+        lumiere: [],
+        temperature: [],
+        moyenneSon: []
+      };
+
+      var datalength = data.length;
+      for(var i = 0 ; i < datalength; i++){
+        values.tupleSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMin), parseFloat(data[i].sonMax)]);
+        values.moyenneSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMoy)]);
+        values.humidity.push([Date.parse(data[i].date), parseFloat(data[i].humidity)]);
+        values.lumiere.push([Date.parse(data[i].date), parseFloat(data[i].lumiere)]);
+        values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
+      }
+      lastValues.moyenneSon.push(values.moyenneSon[values.moyenneSon.length -1][1]);
+      lastValues.humidity.push(values.humidity[values.humidity.length -1][1]);
+      lastValues.lumiere.push(values.lumiere[values.lumiere.length -1][1]);
+      lastValues.temperature.push(values.temperature[values.temperature.length -1][1]);
+      //Voir Main.js
+      generateGraph(values);
+      majJauge(lastValues);
+    });
+});
+</script>
+</head> 
+<body>
+    <!-- Main jumbotron for a primary marketing message or call to action
+  -->
+  <h3>
+    Texte de header
+  </h3>
+  <div class="btn-group">
+    <a href="#" class="btn btn-lg btn-link">Heure</a>
+    <a href="#" class="btn btn-lg btn-link">Journée</a>
+    <a href="#" class="btn btn-lg btn-link">Semaine</a>
+    <a href="#" class="btn btn-lg btn-link">Mois</a>
+  </div>
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-10">
+        <div class="btn-group">
+        </div>
+        <h2>
+          Titre 2
+        </h2>
+        <p>
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus
+          ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
+          sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed
+          odio dui.
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h2>
+          Informations
+        </h2>
+        <div class="progress active progress-striped">
+          <div class="progress-bar" style="width: 50%">
+          </div>
+        </div>
+        <div class="progress active progress-striped">
+          <div class="progress-bar" style="width: 50%">
+          </div>
+        </div>
+        <div class="progress active progress-striped">
+          <div class="progress-bar" style="width: 50%">
+          </div>
+        </div>
+        <div class="progress active progress-striped">
+          <div class="progress-bar" style="width: 50%">
+          </div>
+        </div>
+        <p>
+        </p>
+      </div>
+      <div id="main-graph" style="min-width: 280px; height: 600px; margin: 0 auto"></div>
+      <div id="jaugeTemperature" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+    </div>
+    <hr>
+    <footer>
+    </footer>
+  </div>
+  <!-- /container -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="../monitoring/Highcharts/js/highcharts.js"></script>
+  <script src="../monitoring/Highcharts/js/modules/exporting.js"></script>
+  <script src="../monitoring/Highcharts/js/highcharts-more.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
