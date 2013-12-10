@@ -51,61 +51,56 @@
 </script>
 </head> 
 <body>
-    <!-- Main jumbotron for a primary marketing message or call to action
-  -->
-  <h3>
-    Texte de header
-  </h3>
-  <div class="btn-group">
-    <a href="#" class="btn btn-lg btn-link">Heure</a>
-    <a href="#" class="btn btn-lg btn-link">Journée</a>
-    <a href="#" class="btn btn-lg btn-link">Semaine</a>
-    <a href="#" class="btn btn-lg btn-link">Mois</a>
-  </div>
   <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="col-md-10">
-        <div class="btn-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-12" style="text-align: center;">
+            <h4>Valeurs instantanées</h4>
+          </div>
         </div>
-        <h2>
-          Titre 2
-        </h2>
-        <p>
-          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus
-          ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-          sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed
-          odio dui.
-        </p>
       </div>
-      <div class="col-md-2">
-        <h2>
-          Informations
-        </h2>
-        <div class="progress active progress-striped">
-          <div class="progress-bar" style="width: 50%">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div id="jaugeTemperature" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="col-md-3">
+            <div id="jaugeSon" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="col-md-3">
+            <div id="jaugeHumidite" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="col-md-3">
+            <div id="jaugeLumiere" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
           </div>
         </div>
-        <div class="progress active progress-striped">
-          <div class="progress-bar" style="width: 50%">
-          </div>
-        </div>
-        <div class="progress active progress-striped">
-          <div class="progress-bar" style="width: 50%">
-          </div>
-        </div>
-        <div class="progress active progress-striped">
-          <div class="progress-bar" style="width: 50%">
-          </div>
-        </div>
-        <p>
-        </p>
       </div>
-      <div id="main-graph" style="min-width: 280px; height: 600px; margin: 0 auto"></div>
-      <div id="jaugeTemperature" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
-      <div id="jaugeSon" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
-      <div id="jaugeHumidite" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
-      <div id="jaugeLumiere" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+    </div>
+    <hr>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-12" style="text-align: center;">
+            <h4>Valeurs au cours du temps</h4>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="btn-group-wrap">
+          <div class="btn-group">
+            <a href="#" class="btn btn-lg btn-default">Heure</a>
+            <a href="#" class="btn btn-lg btn-default">Journée</a>
+            <a href="#" class="btn btn-lg btn-default">Semaine</a>
+            <a href="#" class="btn btn-lg btn-default">Mois</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="main-graph" style="min-width: 280px; height: 600px; margin: 0 auto"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <hr>
     <footer>
