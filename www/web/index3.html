@@ -63,16 +63,16 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-3">
-            <div id="jaugeTemperature" style="min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+            <div id="jaugeTemperature" style="min-width: 200px; max-width: 400px; height: 250px; margin: 0 auto"></div>
           </div>
           <div class="col-md-3">
-            <div id="jaugeSon" style="min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+            <div id="jaugeSon" style="min-width: 200px; max-width: 400px; height: 250px; margin: 0 auto"></div>
           </div>
           <div class="col-md-3">
-            <div id="jaugeHumidite" style="min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+            <div id="jaugeHumidite" style="min-width: 200px; max-width: 400px; height: 250px; margin: 0 auto"></div>
           </div>
           <div class="col-md-3">
-            <div id="jaugeLumiere" style="min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+            <div id="jaugeLumiere" style="min-width: 200px; max-width: 400px; height: 250px; margin: 0 auto"></div>
           </div>
         </div>
       </div>
@@ -81,20 +81,40 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <div class="row">
-          <div class="col-md-12" style="text-align: center;">
-            <h4>Historique</h4>
+          <div class="col-md-5">
+            <div class="btn-group-wrap" style="text-align: left;">
+              <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default active">
+                    <input type="radio" name="options" id="option1">Heure
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="options" id="option2">Journée
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="options" id="option3">Semaine
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="options" id="option4">Mois
+                  </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2" style="text-align: center;">
+              <h4>Historique</h4>
+          </div>
+          <div class="col-md-5" style="text-align: right;"> 
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default active">
+                <input type="radio" name="options" id="option1"><span class="glyphicon glyphicon-stats"></span>
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="options" id="option2"><span class="glyphicon glyphicon-th-large"></span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div class="panel-body">
-        <div class="btn-group-wrap">
-          <div class="btn-group">
-            <a href="#" class="btn btn-lg btn-default">Heure</a>
-            <a href="#" class="btn btn-lg btn-default">Journée</a>
-            <a href="#" class="btn btn-lg btn-default">Semaine</a>
-            <a href="#" class="btn btn-lg btn-default">Mois</a>
-          </div>
-        </div>
         <div class="row">
           <div class="col-md-12">
             <div id="main-graph" style="min-width: 280px; height: 600px; margin: 0 auto"></div>
@@ -102,9 +122,6 @@
         </div>
       </div>
     </div>
-    <hr>
-    <footer>
-    </footer>
   </div>
   <!-- /container -->
   <script src="bootstrap/js/bootstrap.min.js"></script>

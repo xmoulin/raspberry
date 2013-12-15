@@ -5,131 +5,134 @@ function generateGraph(data){
 			zoomType: 'x'
             //zoomType: 'xy'
         },
-        title: {
-        	text: 'Sonde de l\'open space'
-        },
-        subtitle: {
-        	text: 'Temperature / Humidité / Lumiere / Son - Zoomable'
-        },
-        xAxis: {
-        	type: 'datetime',
-        	labels: {
-        		rotation: -45,
-        		align: 'right',
-        		style: {
-        			fontSize: '13px',
-        			fontFamily: 'Verdana, sans-serif'
-        		}
-        	}
-        },
+        credits: {
+           enabled: false
+       },
+       title: {
+        text: 'Sonde de l\'open space'
+    },
+    subtitle: {
+        text: 'Temperature / Humidité / Lumiere / Son - Zoomable'
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+            rotation: -45,
+            align: 'right',
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
         yAxis: [{ // Primary yAxis
-        	labels: {
-        		format: '{value}°C',
-        		style: {
-        			color: '#AA4643'
-        		}
-        	},
-        	title: {
-        		text: 'Temperature',
-        		style: {
-        			color: '#AA4643'
-        		}
-        	}
+            labels: {
+                format: '{value}°C',
+                style: {
+                    color: '#AA4643'
+                }
+            },
+            title: {
+                text: 'Temperature',
+                style: {
+                    color: '#AA4643'
+                }
+            }
         }, { // Secondary yAxis
-        	title: {
-        		text: 'Humidité',
-        		style: {
-        			color: '#4572A7'
-        		}
-        	},
-        	labels: {
-        		format: '{value} %',
-        		style: {
-        			color: '#4572A7'
-        		}
-        	}
+            title: {
+                text: 'Humidité',
+                style: {
+                    color: '#4572A7'
+                }
+            },
+            labels: {
+                format: '{value} %',
+                style: {
+                 color: '#4572A7'
+             }
+         }
         }, { // Third yAxis
-        	title: {
-        		text: 'Son',
-        		style: {
-        			color: '#660033'
-        		}
-        	},
-        	labels: {
-        		format: '{value} Db',
-        		style: {
-        			color: '#660033'
-        		}
-        	},
-        	opposite: true
+            title: {
+             text: 'Son',
+             style: {
+              color: '#660033'
+          }
+      },
+      labels: {
+         format: '{value} Db',
+         style: {
+          color: '#660033'
+      }
+  },
+  opposite: true
         }, { // Fourth yAxis
-        	title: {
-        		text: 'Lumiere',
-        		style: {
-        			color: '#8bbc21'
-        		}
-        	},
-        	labels: {
-        		format: '{value} Lux',
-        		style: {
-        			color: '#8bbc21'
-        		}
-        	},
-        	opposite: true
-        }],
-        tooltip: {
-        	crosshairs: true,
-        	shared: true,
-        	valueSuffix: '°C'
-        },
-        legend: {
-        	enabled: false
-        },
-        series: [{
-        	name: 'Son',
-        	data: data.tupleSon,
-        	yAxis: 2,
-        	color: '#FF99FF',
-        	tooltip: {
-        		valueSuffix: 'Db'
-        	}
-        }, {
-        	name: 'MoyenneSon',
-        	type: 'spline',
-        	data: data.moyenneSon,
-        	yAxis: 2,
-        	color: '#DDAADD',
-        	tooltip: {
-        		valueSuffix: 'Db'
-        	}       
-        }, {
-        	name: 'Humidite',
-        	type: 'spline',
-        	yAxis: 1,
-        	color: '#4572A7',
-        	data: data.humidity,
-        	tooltip: {
-        		valueSuffix: '%'
-        	}
-        }, {
-        	name: 'Lumiere',
-        	type: 'spline',
-        	yAxis: 3,
-        	color: '#8bbc21',
-        	data: data.lumiere,
-        	tooltip: {
-        		valueSuffix: 'Lux'
-        	}     
-        }, {
-        	name: 'Temperature',
-        	type: 'spline',
-        	color: '#AA4643',
-        	data: data.temperature,       
-        	tooltip: {
-        		valueSuffix: '°C'
-        	}
-        }]
-    });            
+            title: {
+               text: 'Lumiere',
+               style: {
+                  color: '#8bbc21'
+              }
+          },
+          labels: {
+           format: '{value} Lux',
+           style: {
+              color: '#8bbc21'
+          }
+      },
+      opposite: true
+  }],
+  tooltip: {
+    crosshairs: true,
+    shared: true,
+    valueSuffix: '°C'
+},
+legend: {
+   enabled: true
+},
+series: [{
+    name: 'Son',
+    data: data.tupleSon,
+    yAxis: 2,
+    color: '#FF99FF',
+    tooltip: {
+       valueSuffix: 'Db'
+   }
+}, {
+    name: 'MoyenneSon',
+    type: 'spline',
+    data: data.moyenneSon,
+    yAxis: 2,
+    color: '#DDAADD',
+    tooltip: {
+        valueSuffix: 'Db'
+    }
+}, {
+    name: 'Humidite',
+    type: 'spline',
+    yAxis: 1,
+    color: '#4572A7',
+    data: data.humidity,
+    tooltip: {
+       valueSuffix: '%'
+   }
+}, {
+    name: 'Lumiere',
+    type: 'spline',
+    yAxis: 3,
+    color: '#8bbc21',
+    data: data.lumiere,
+    tooltip: {
+       valueSuffix: 'Lux'
+   }
+}, {
+ name: 'Temperature',
+ type: 'spline',
+ color: '#AA4643',
+ data: data.temperature,
+ tooltip: {
+    valueSuffix: '°C'
+}
+}]
+});
 }
 
 function majJauge(data){
@@ -143,139 +146,148 @@ function majJauge(data){
 			plotBorderWidth: 0,
 			plotShadow: false
 		},
+        credits: {
+         enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        title: {
+         text: 'Température'
+        },
+       pane: {
+           startAngle: -150,
+           endAngle: 150,
+           background: [{
+            backgroundColor: {
+             linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+             stops: [
+             [0, '#FFF'],
+             [1, '#333']
+             ]
+         },
+         borderWidth: 0,
+         outerRadius: '109%'
+     }, {
+        backgroundColor: {
+         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+         stops: [
+         [0, '#333'],
+         [1, '#FFF']
+         ]
+     },
+     borderWidth: 1,
+     outerRadius: '107%'
+ }, {
+            // default background
+        }, {
+            backgroundColor: '#DDD',
+            borderWidth: 0,
+            outerRadius: '105%',
+            innerRadius: '103%'
+        }]
+    },
 
-		title: {
-			text: 'Thermométre'
-		},
+    // the value axis
+    yAxis: {
+        min: 5,
+        max: 35,
 
-		pane: {
-			startAngle: -150,
-			endAngle: 150,
-			background: [{
-				backgroundColor: {
-					linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-					stops: [
-					[0, '#FFF'],
-					[1, '#333']
-					]
-				},
-				borderWidth: 0,
-				outerRadius: '109%'
-			}, {
-				backgroundColor: {
-					linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-					stops: [
-					[0, '#333'],
-					[1, '#FFF']
-					]
-				},
-				borderWidth: 1,
-				outerRadius: '107%'
-			}, {
-	            // default background
-	        }, {
-	        	backgroundColor: '#DDD',
-	        	borderWidth: 0,
-	        	outerRadius: '105%',
-	        	innerRadius: '103%'
-	        }]
-	    },
+        minorTickInterval: 'auto',
+        minorTickWidth: 1,
+        minorTickLength: 10,
+        minorTickPosition: 'inside',
+        minorTickColor: '#666',
 
-	    // the value axis
-	    yAxis: {
-	    	min: 5,
-	    	max: 35,
+        tickPixelInterval: 50,
+        tickWidth: 2,
+        tickPosition: 'inside',
+        tickLength: 10,
+        tickColor: '#666',
+        labels: {
+            step: 2,
+            rotation: 'auto'
+        },
+        title: {
+            text: '°C'
+        },
+        plotBands: [
+        {
+            from: 5,
+            to: 11,
+color: '#DF5353' // red
+}, 	{
+    from: 11,
+    to: 17,
+color: '#DDDF0D' // yellow
+}, {
+    from: 17,
+    to: 23,
+color: '#55BF3B' // green
+}, {
+    from: 23,
+    to: 29,
+color: '#DDDF0D' // yellow
+}, {
+    from: 29,
+    to: 35,
+color: '#DF5353' // red
+}]
+},
 
-	    	minorTickInterval: 'auto',
-	    	minorTickWidth: 1,
-	    	minorTickLength: 10,
-	    	minorTickPosition: 'inside',
-	    	minorTickColor: '#666',
+series: [{
+    name: 'Temperature',
+    data: data.temperature,
+    tooltip: {
+        valueSuffix: ' °C'
+    }
+}]
 
-	    	tickPixelInterval: 50,
-	    	tickWidth: 2,
-	    	tickPosition: 'inside',
-	    	tickLength: 10,
-	    	tickColor: '#666',
-	    	labels: {
-	    		step: 2,
-	    		rotation: 'auto'
-	    	},
-	    	title: {
-	    		text: '°C'
-	    	},
-	    	plotBands: [
-	    	{
-	    		from: 5,
-	    		to: 11,
-	            color: '#DF5353' // red
-	        }, 	{
-	        	from: 11,
-	        	to: 17,
-	            color: '#DDDF0D' // yellow
-	        }, {
-	        	from: 17,
-	        	to: 23,
-	            color: '#55BF3B' // green
-	        }, {
-	        	from: 23,
-	        	to: 29,
-	            color: '#DDDF0D' // yellow
-	        }, {
-	        	from: 29,
-	        	to: 35,
-	            color: '#DF5353' // red
-	        }]        
-	    },
-
-	    series: [{
-	    	name: 'Temperature',
-	    	data: data.temperature,
-	    	tooltip: {
-	    		valueSuffix: ' °C'
-	    	}
-	    }]
-
-	});
+});
 
 $('#jaugeSon').highcharts({
 
-        chart: {
-            type: 'gauge',
-            plotBackgroundColor: null,
-            plotBackgroundImage: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
+    chart: {
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    credits: {
+       enabled: false
+   },
+   exporting: {
+    enabled: false
+    },
+   title: {
+    text: 'Son'
+},
 
-        title: {
-            text: 'Sonomètre'
+pane: {
+    startAngle: -150,
+    endAngle: 150,
+    background: [{
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#FFF'],
+            [1, '#333']
+            ]
         },
-
-        pane: {
-            startAngle: -150,
-            endAngle: 150,
-            background: [{
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#FFF'],
-                    [1, '#333']
-                    ]
-                },
-                borderWidth: 0,
-                outerRadius: '109%'
-            }, {
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#333'],
-                    [1, '#FFF']
-                    ]
-                },
-                borderWidth: 1,
-                outerRadius: '107%'
-            }, {
+        borderWidth: 0,
+        outerRadius: '109%'
+    }, {
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#333'],
+            [1, '#FFF']
+            ]
+        },
+        borderWidth: 1,
+        outerRadius: '107%'
+    }, {
                 // default background
             }, {
                 backgroundColor: '#DDD',
@@ -321,7 +333,7 @@ $('#jaugeSon').highcharts({
                 from: 55,
                 to: 80,
                 color: '#DF5353' // red
-            }]        
+            }]
         },
 
         series: [{
@@ -337,42 +349,47 @@ $('#jaugeSon').highcharts({
 
 $('#jaugeHumidite').highcharts({
 
-        chart: {
-            type: 'gauge',
-            plotBackgroundColor: null,
-            plotBackgroundImage: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
+    chart: {
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    credits: {
+       enabled: false
+   },
+    exporting: {
+        enabled: false
+    },
+   title: {
+    text: 'Humidité'
+},
 
-        title: {
-            text: 'Humidité'
+pane: {
+    startAngle: -150,
+    endAngle: 150,
+    background: [{
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#FFF'],
+            [1, '#333']
+            ]
         },
-
-        pane: {
-            startAngle: -150,
-            endAngle: 150,
-            background: [{
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#FFF'],
-                    [1, '#333']
-                    ]
-                },
-                borderWidth: 0,
-                outerRadius: '109%'
-            }, {
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#333'],
-                    [1, '#FFF']
-                    ]
-                },
-                borderWidth: 1,
-                outerRadius: '107%'
-            }, {
+        borderWidth: 0,
+        outerRadius: '109%'
+    }, {
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#333'],
+            [1, '#FFF']
+            ]
+        },
+        borderWidth: 1,
+        outerRadius: '107%'
+    }, {
                 // default background
             }, {
                 backgroundColor: '#DDD',
@@ -426,7 +443,7 @@ $('#jaugeHumidite').highcharts({
                 from: 70,
                 to: 90,
                 color: '#DF5353' // red
-            }]       
+            }]
         },
 
         series: [{
@@ -442,42 +459,47 @@ $('#jaugeHumidite').highcharts({
 
 $('#jaugeLumiere').highcharts({
 
-        chart: {
-            type: 'gauge',
-            plotBackgroundColor: null,
-            plotBackgroundImage: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
+    chart: {
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    credits: {
+       enabled: false
+   },
+    exporting: {
+        enabled: false
+    },
+   title: {
+    text: 'Lumière'
+},
 
-        title: {
-            text: 'Lumière'
+pane: {
+    startAngle: -150,
+    endAngle: 150,
+    background: [{
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#FFF'],
+            [1, '#333']
+            ]
         },
-
-        pane: {
-            startAngle: -150,
-            endAngle: 150,
-            background: [{
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#FFF'],
-                    [1, '#333']
-                    ]
-                },
-                borderWidth: 0,
-                outerRadius: '109%'
-            }, {
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                    [0, '#333'],
-                    [1, '#FFF']
-                    ]
-                },
-                borderWidth: 1,
-                outerRadius: '107%'
-            }, {
+        borderWidth: 0,
+        outerRadius: '109%'
+    }, {
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+            [0, '#333'],
+            [1, '#FFF']
+            ]
+        },
+        borderWidth: 1,
+        outerRadius: '107%'
+    }, {
                 // default background
             }, {
                 backgroundColor: '#DDD',
@@ -523,7 +545,7 @@ $('#jaugeLumiere').highcharts({
                 from: 0,
                 to: 60,
                 color: '#DF5353' // red
-            }]        
+            }]
         },
 
         series: [{
