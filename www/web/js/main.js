@@ -102,6 +102,9 @@ series: [{
     data: data.moyenneSon,
     yAxis: 2,
     color: '#DDAADD',
+    marker: {
+        enabled: false
+    },
     tooltip: {
         valueSuffix: 'Db'
     }
@@ -111,6 +114,9 @@ series: [{
     yAxis: 1,
     color: '#4572A7',
     data: data.humidity,
+    marker: {
+        enabled: false
+     },
     tooltip: {
        valueSuffix: '%'
    }
@@ -120,6 +126,9 @@ series: [{
     yAxis: 3,
     color: '#8bbc21',
     data: data.lumiere,
+    marker: {
+        enabled: false
+    },
     tooltip: {
        valueSuffix: 'Lux'
    }
@@ -128,6 +137,9 @@ series: [{
  type: 'spline',
  color: '#AA4643',
  data: data.temperature,
+ marker: {
+    enabled: false
+ },
  tooltip: {
     valueSuffix: '°C'
 }
