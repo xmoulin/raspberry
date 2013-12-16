@@ -14,41 +14,10 @@
 
   <script type="text/javascript">
   $(function () {
-    $.get('../data-monitoring2.php?limit=100', function(data){
-      data = JSON.parse(data);
-      var values = {
-        tupleSon: [],
-        humidity: [],
-        lumiere: [],
-        temperature: [],
-        moyenneSon: []
-      };
-      var lastValues = {
-        tupleSon: [],
-        humidity: [],
-        lumiere: [],
-        temperature: [],
-        moyenneSon: []
-      };
-
-      var datalength = data.length;
-      for(var i = 0 ; i < datalength; i++){
-        values.tupleSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMin), parseFloat(data[i].sonMax)]);
-        values.moyenneSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMoy)]);
-        values.humidity.push([Date.parse(data[i].date), parseFloat(data[i].humidity)]);
-        values.lumiere.push([Date.parse(data[i].date), parseFloat(data[i].lumiere)]);
-        values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
-      }
-      lastValues.moyenneSon.push(values.moyenneSon[values.moyenneSon.length -1][1]);
-      lastValues.humidity.push(values.humidity[values.humidity.length -1][1]);
-      lastValues.lumiere.push(values.lumiere[values.lumiere.length -1][1]);
-      lastValues.temperature.push(values.temperature[values.temperature.length -1][1]);
-      //Voir Main.js
-      generateGraph(values);
-      majJauge(lastValues);
-      generateGraphBouchon(values);
-    });
-});
+    $.get('../data-monitoring2.php?limit=50', function( data ) {
+        initGraph(data);
+      });
+  });
 </script>
 </head> 
 <body>
@@ -85,16 +54,16 @@
             <div class="btn-group-wrap" style="text-align: left;">
               <div class="btn-group" data-toggle="buttons" id="periode">
                   <label class="btn btn-default active">
-                    <input type="radio" name="options" id="option1">Heure
+                    <input type="radio" name="options" id="Heure">Heure
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="options" id="option2">Journée
+                    <input type="radio" name="options" id="Journee">Journée
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="options" id="option3">Semaine
+                    <input type="radio" name="options" id="Semaine">Semaine
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="options" id="option4">Mois
+                    <input type="radio" name="options" id="Mois">Mois
                   </label>
               </div>
             </div>

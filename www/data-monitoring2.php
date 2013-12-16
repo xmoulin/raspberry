@@ -21,7 +21,7 @@ if (!empty($champ)) {
 } else {
 	$requete = $requete . " temperatureEau,temperature, humidity, date, sonMin, sonMax, sonMoy, co2, lumiere  ";
 }
-$requete = $requete . " FROM indicateur Order by date ";
+$requete = $requete . " FROM indicateur Order by date desc";
 
 //LIMIT 10 OFFSET 5;  # Retourne les enregistrements 6 à 15
 if (!empty($limit)) {
