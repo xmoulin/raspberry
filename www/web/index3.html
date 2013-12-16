@@ -8,9 +8,9 @@
   <title>
     Tableau de bord
   </title>
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/main2.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="./js/jquery-1.10.2.min.js"></script>
 
   <script type="text/javascript">
   $(function () {
@@ -46,6 +46,7 @@
       //Voir Main.js
       generateGraph(values);
       majJauge(lastValues);
+      generateGraphBouchon(values);
     });
 });
 </script>
@@ -80,9 +81,9 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-xs-5">
             <div class="btn-group-wrap" style="text-align: left;">
-              <div class="btn-group" data-toggle="buttons">
+              <div class="btn-group" data-toggle="buttons" id="periode">
                   <label class="btn btn-default active">
                     <input type="radio" name="options" id="option1">Heure
                   </label>
@@ -98,36 +99,61 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2" style="text-align: center;">
+          <div class="col-xs-2 text-center">
               <h4>Historique</h4>
           </div>
-          <div class="col-md-5" style="text-align: right;"> 
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default active">
-                <input type="radio" name="options" id="option1"><span class="glyphicon glyphicon-stats"></span>
+          <div class="col-xs-5" style="text-align: right;"> 
+            <div class="ui-group-buttons" data-toggle="buttons" id="typeAffichageCourbe">
+              <label class="btn btn-default active" id="unSeulGraph-Radio">
+                <input type="radio" name="options" role="button"><span class="glyphicon glyphicon-stats"></span>
               </label>
-              <label class="btn btn-default">
-                <input type="radio" name="options" id="option2"><span class="glyphicon glyphicon-th-large"></span>
+              <div class="or"></div>
+              <label class="btn btn-default" id="NGraph-Radio">
+                <input type="radio" name="options" role="button"><span class="glyphicon glyphicon-th-large"></span>
               </label>
             </div>
           </div>
         </div>
       </div>
       <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
+        <div class="tab-content">
+          <div class="tab-pane active" id="unSeulGraph">
             <div id="main-graph" style="min-width: 280px; height: 600px; margin: 0 auto"></div>
           </div>
-        </div>
+          <div class="tab-pane" id="NGraph">
+            <div class="row">
+              <div class="col-md-6">
+                <div id="graphTemperature" style="height: 600px; margin: 0 auto"></div>
+              </div>
+              <div class="col-md-6">
+                <div id="bouchon" style="height: 600px; margin: 0 auto"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                3eme graph
+              </div>
+              <div class="col-md-6">
+                4eme graph
+              </div>
+            </div>
+          </div>
       </div>
+      <div class="hidden">test hidden</div>
+      <div class="show">test show</div>Y
+      <div class="invisible">test invisible</div>
+            
+            
     </div>
   </div>
   <!-- /container -->
-  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
   <script src="../monitoring/Highcharts/js/highcharts.js"></script>
   <script src="../monitoring/Highcharts/js/modules/exporting.js"></script>
   <script src="../monitoring/Highcharts/js/highcharts-more.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/graphs.js"></script>
+  <script src="./js/graphsBouchons.js"></script>
 </body>
 
 </html>
