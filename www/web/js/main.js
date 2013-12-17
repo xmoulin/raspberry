@@ -7,8 +7,10 @@ $('#typeAffichageCourbe label').click(function (e) {
     //var idAAfficher = this.id.split('-')[0];
     //console.log(idAAfficher);
     //console.log($("#NGraph").style);
-    $("#unSeulGraph").toggle();
-    $("#NGraph").toggle();
+    //$("#unSeulGraph").toggle();
+    //$("#NGraph").toggle();
+    $("#unSeulGraph").toggle("Drop", null, 500);
+    $("#NGraph").toggle("Drop", null, 500);
     
     //alert(idAAfficher);
     //e.preventDefault()
@@ -67,6 +69,8 @@ function initGraph(data, skipJauge){
   };
 
   var datalength = data.length;
+  //On trie a l'envers car highchart fait une erreur si on ajoute pas les points dans un ordre ascendant
+  //La requete SQL elle est desc pour avoir toujours les points
   for(var i = datalength-1 ; i > 0; i--){
     values.tupleSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMin), parseFloat(data[i].sonMax)]);
     values.moyenneSon.push([Date.parse(data[i].date), parseFloat(data[i].sonMoy)]);
