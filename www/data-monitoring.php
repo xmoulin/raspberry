@@ -11,6 +11,7 @@ if (isset($_GET['limit'])) {$limit = (int)stripslashes(htmlspecialchars($_GET['l
 if (isset($_GET['offset'])) {$offset = (int)stripslashes(htmlspecialchars($_GET['offset']));}
 
 //Creation de la requete:
+//
 $requete = "SELECT ";
 
 if (!empty($champ)) {
