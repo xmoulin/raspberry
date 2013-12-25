@@ -88,5 +88,5 @@ function initGraph(data, skipJauge){
     //Voir Main.js  
     majJauge(lastValues);
   }
-  generateGraphBouchon(values);
+  graphs.generateGraphBouchon(values);
 }
