@@ -1,6 +1,7 @@
 <?php 
+
 // on se connecte à MySQL 
-$db = mysql_connect('localhost', 'root', ''); 
+$db = mysql_connect('localhost', 'pi', 'raspberry'); 
 
 // on sélectionne la base 
 mysql_select_db('monitoring',$db); 
