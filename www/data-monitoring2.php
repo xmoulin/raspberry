@@ -19,7 +19,7 @@ if (!empty($champ)) {
 } else if (!empty($champs)) {
 	$requete = $requete . $champs;
 } else {
-	$requete = $requete . " temperatureEau,temperature, humidity, date, sonMin, sonMax, sonMoy, co2, lumiere  ";
+	$requete = $requete . " temperatureEau,temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere  ";
 }
 $requete = $requete . " FROM indicateur Order by date desc";
 
