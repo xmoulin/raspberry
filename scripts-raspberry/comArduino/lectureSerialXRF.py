@@ -25,7 +25,18 @@ def xmnData(donnees):
      return donnees
 
 print("debut")
-#ser = serial.Serial('/dev/ttyACM0', 9600)
+#
+# Exemple de flux possible
+#
+#{"iteration":1,"sonMin":0,"sonMax":0,"sonMoy":0,"gaz":3,"lumiere":77,"temperature":23.10000,"humidity":53.00000}
+#{"action":loadDataBouton}
+#{"iteration":2,"sonMin":0,"sonMax":11,"sonMoy":0,"gaz":3,"lumiere":77,"temperature":23.10000,"humidity":53.00000}
+#{"action":NFC,"id": D5 28 FE B0}
+#{"iteration":3,"sonMin":0,"sonMax":14,"sonMoy":0,"gaz":3,"lumiere":76,"temperature":23.10000,"humidity":53.00000}
+#{"action":toogleBouton}
+#{"action":adminBouton}
+#{"action":NFC,"id": 04 C4 5D 82 BA 29 80}
+#{"action":NFC,"id": 44 94 72 1A}
 ser = serial.Serial('/dev/ttyAMA0',9600)
 while 1 :
 	line = ser.readline().rstrip()
