@@ -22,6 +22,11 @@ def xmnData(donnees):
 #	cur.execute('INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity, date ) VALUES (%s,%s,%s,%s,%s)',(donnees['iteration'],donnees['temperatureEau'],donnees['temperature'],donnees['humidity'],1);
 	db.commit()
         return donnees['temperature'] 
+     elif 'action' in donnees:
+	if donnees['action'] == 'NFC':
+		return donnees['id']
+	else:
+		return donnees['action']
      return donnees
 
 print("debut")
