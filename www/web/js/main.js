@@ -1,9 +1,33 @@
+//Utile pour debugger en attendant l'activation websocket
+$('#bt-toggleBouton').click(function (e) {
+  toogleGraph();
+});
+$('#bt-NFC-Xavier').click(function (e) {
+  activeNFCXavier();
+});
 //Gestion du toggle entre courbe principale et petites courbes
 //TODO: BUG: si on clique 2 fois sur le meme icone ça toggle qd meme.
 //D'où le code en commentaire pour verifier si la visibilité du graph n'ets pas deja visible avant le toggle.
 //La fonction toggle prend d'ailleur en paramétre un flag true/false pour ne pas faire le toggle si condition vraie (ou fausse, a verifier)
 $('#typeAffichageCourbe label').click(function (e) {
-    
+  toogleGraph();
+});
+
+function activeNFCXavier(){
+  var chaineTexte = "<div id=\"NFC-Xavier\" class=\"alert alert-danger alert-dismissable \"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Bonjour Xavier!</div>"; 
+  $("#fixe").html(chaineTexte);
+  //todo:
+  //- factoriser
+  //- changer le background pour JMP / Eric
+  //- voir meme changer de page d'affichage pour JMP -> Manager & remplacer Eric par Remi Moebs et un background atlantique cf relais innovation
+  //activeNFC("NFC-Xavier");
+}
+
+function activeNFC(name){
+  $("#NFC-Xavier").show(500);
+}
+
+function toogleGraph(){
     //var idAAfficher = this.id.split('-')[0];
     //console.log(idAAfficher);
     //console.log($("#NGraph").style);
@@ -15,8 +39,8 @@ $('#typeAffichageCourbe label').click(function (e) {
     //alert(idAAfficher);
     //e.preventDefault()
     //$(idAAfficher).toggleDisplay('show')
-  });
-
+}
+ 
 //Si changement de periode
 $('#periode label').click(function (e) {
     //Recuperation de l'id de la balise input sous la balise label (pas optimum mais bon, pas reussi à faire mieux)
@@ -51,7 +75,7 @@ $('#periode label').click(function (e) {
 //- le flux JSON de Data
 //- un boolean si true, on ne modifie pas les valeurs des jauges
 function initGraph(data, skipJauge){
-  console.log(skipJauge);
+  //console.log(skipJauge);
   data = JSON.parse(data);
   var values = {
     tupleSon: [],
