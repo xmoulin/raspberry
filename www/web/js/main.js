@@ -18,8 +18,10 @@ function activeNFCXavier(){
   $("#fixe").html(chaineTexte);
   //todo:
   //- factoriser
-  //- changer le background pour JMP / Eric
-  //- voir meme changer de page d'affichage pour JMP -> Manager & remplacer Eric par Remi Moebs et un background atlantique cf relais innovation
+  //- pour JMP
+  //  - passer sur la vue 4 courbes, derniere heure affichée.
+  //- pour Eric
+  //  - remplacer Eric par Remi Moebs et un background atlantique (recup image slide du relais innovation)
   //activeNFC("NFC-Xavier");
 }
 
