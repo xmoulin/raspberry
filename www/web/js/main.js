@@ -1,55 +1,90 @@
 //Utile pour debugger en attendant l'activation websocket
 $('#bt-toggleBouton').click(function (e) {
-  toogleGraph();
+  toggleGraph();
 });
 $('#bt-NFC-Xavier').click(function (e) {
   activeNFCXavier();
 });
-//Gestion du toggle entre courbe principale et petites courbes
-//TODO: BUG: si on clique 2 fois sur le meme icone ça toggle qd meme.
-//D'où le code en commentaire pour verifier si la visibilité du graph n'ets pas deja visible avant le toggle.
-//La fonction toggle prend d'ailleur en paramétre un flag true/false pour ne pas faire le toggle si condition vraie (ou fausse, a verifier)
-$('#typeAffichageCourbe label').click(function (e) {
-  toogleGraph();
+$('#bt-NFC-Jean-Marie').click(function (e) {
+  activeNFCJeanMarie();
+});
+$('#bt-NFC-Remi').click(function (e) {
+  activeNFCRemi();
 });
 
+//Gestion du toggle entre courbe principale et petites courbes
+$('#unSeulGraph-Radio').click(function (e) {
+  toggleGraphById($("#unSeulGraph"), $("#NGraph"));
+});
+$('#NGraph-Radio').click(function (e) {
+  toggleGraphById($("#NGraph"), $("#unSeulGraph"));
+});
+
+//On affiche JMP
+//On passe ne mode 4 graphes
+//On affiche les données de la journée (2eme label en utilisation l'index des labels depuis la balise periode)
+function activeNFCJeanMarie(){
+  showFixeDiv("Jean-Marie");
+  $('#periode label:eq(1)').click();
+  $('#NGraph-Radio').click();
+  //on compense les choses faites avec le user Remi
+  $("#panelHistorique").show();
+  $('#imageRemi').removeClass("remi");
+}
+
+function activeNFCRemi(){
+  showFixeDiv("Rémi");
+  $("#panelHistorique").hide();
+  $('#imageRemi').addClass("remi"); 
+}
+
 function activeNFCXavier(){
-  var chaineTexte = "<div id=\"NFC-Xavier\" class=\"alert alert-danger alert-dismissable \"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Bonjour Xavier!</div>"; 
-  $("#fixe").html(chaineTexte);
-  //todo:
-  //- factoriser
-  //- pour JMP
-  //  - passer sur la vue 4 courbes, derniere heure affichée.
-  //- pour Eric
-  //  - remplacer Eric par Remi Moebs et un background atlantique (recup image slide du relais innovation)
-  //activeNFC("NFC-Xavier");
+  showFixeDiv("Xavier");
+  //on compense les choses faites avec le user Remi
+  $("#panelHistorique").show();
+  $('#imageRemi').removeClass("remi");
 }
 
-function activeNFC(name){
-  $("#NFC-Xavier").show(500);
+function showFixeDiv(name){
+  var chaineTexte = "<div id=\"NFC\" class=\"alert alert-danger alert-dismissable \"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Bonjour "+name+"!</div>"; 
+  $("#fixe").html(chaineTexte).hide();
+  //Pour avoir l effet apparition
+  $("#fixe").show("Drop");
 }
 
-function toogleGraph(){
-    //var idAAfficher = this.id.split('-')[0];
-    //console.log(idAAfficher);
-    //console.log($("#NGraph").style);
-    //$("#unSeulGraph").toggle();
-    //$("#NGraph").toggle();
-    $("#unSeulGraph").toggle("Drop", null, 500);
-    $("#NGraph").toggle("Drop", null, 500);
-    
-    //alert(idAAfficher);
-    //e.preventDefault()
-    //$(idAAfficher).toggleDisplay('show')
+function toggleGraph(){
+  //On ne peut pas faire simplement un toogle sinon on perd l'etat du click sur le bouton de menu
+  //On fait donc des click
+  if ($("#unSeulGraph").is(':visible')) {
+    $('#NGraph-Radio').click();
+  } else {
+    $('#unSeulGraph-Radio').click();
+  }
+}
+
+//idAAfficher est un element du DOM en l'occurence un objet label
+//Idem pour idAMasquer
+function toggleGraphById(idAAfficher, idAMasquer){
+    idAMasquer.hide();
+    idAAfficher.show("Drop");
 }
  
 //Si changement de periode
 $('#periode label').click(function (e) {
     //Recuperation de l'id de la balise input sous la balise label (pas optimum mais bon, pas reussi à faire mieux)
     var selection = this.firstChild.nextSibling.id;
+    switchPeriode(selection);
+});
+
+//Fonction permettant de changer de période
+//selection peut prendre les valeurs:
+//- Heure
+//- Journee
+//- Semaine
+//- Mois
+function switchPeriode(selection) {
     switch (selection) {
       case "Heure":
-        console.log("aa");
         $.get('../data-monitoring2.php?limit=50', function( data ) {
             initGraph(data,true);}
           );
@@ -70,7 +105,8 @@ $('#periode label').click(function (e) {
           );
         break;
      }
-  });
+} 
+
 
 //A partir des Data en parametre, on initialise tous les graphs
 //En parametre:
