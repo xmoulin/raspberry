@@ -56,11 +56,32 @@ function toggleGraph(){
   //On ne peut pas faire simplement un toogle sinon on perd l'etat du click sur le bouton de menu
   //On fait donc des click
   if ($("#unSeulGraph").is(':visible')) {
-    $('#NGraph-Radio').click();
+    $('#NGraph-Radio').click();	
   } else {
     $('#unSeulGraph-Radio').click();
   }
 }
+$('#unSeulGraph-Radio').click(function(e) {
+		$("#NGraph").removeClass("active").hide("slow");	
+		$("#unSeulGraph").addClass("active").show("slow",
+				function() {
+					$('#main-graph').highcharts().reflow();
+				});
+
+});
+
+$('#NGraph-Radio').click(function(e) {	
+		$("#unSeulGraph").removeClass("active").hide("slow");
+		$("#NGraph").addClass("active").show("slow",  
+				function() {
+					$('#graphTemperature').highcharts().reflow();
+					$('#graphHumidite').highcharts().reflow();
+					$('#graphSon').highcharts().reflow();
+					$('#graphLumiere').highcharts().reflow();
+		
+				});
+});
+
 
 //idAAfficher est un element du DOM en l'occurence un objet label
 //Idem pour idAMasquer
@@ -140,6 +161,23 @@ function initGraph(data, skipJauge){
     values.lumiere.push([Date.parse(data[i].date), parseFloat(data[i].lumiere)]);
     values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
   }
+  
+  	var datalength = data.length;
+	//On trie a l'envers car highchart fait une erreur si on ajoute pas les points dans un ordre ascendant
+	//La requete SQL elle est desc pour avoir toujours les points
+
+	for (var i = datalength - 1; i > 0; i--) {
+		values.tupleSon.push([ Date.parse(data[i].date),
+				parseFloat(data[i].sonMin), parseFloat(data[i].sonMax) ]);
+		values.moyenneSon.push([ Date.parse(data[i].date),
+				parseFloat(data[i].sonMoy) ]);
+		values.humidity.push([ Date.parse(data[i].date),
+				parseFloat(data[i].humidity) ]);
+		values.lumiere.push([ Date.parse(data[i].date),
+				parseFloat(data[i].lumiere) ]);
+		values.temperature.push([ Date.parse(data[i].date),
+				parseFloat(data[i].temperature) ]);
+	}
 
   //Voir Main.js
   generateGraph(values);
@@ -152,7 +190,7 @@ function initGraph(data, skipJauge){
     lastValues.lumiere.push(values.lumiere[values.lumiere.length -1][1]);
     lastValues.temperature.push(values.temperature[values.temperature.length -1][1]);
     //Voir Main.js  
-    majJauge(lastValues);
+     graphsJauge.generateGraph(lastValues);
   }
   graphs.generateGraphBouchon(values);
 }
