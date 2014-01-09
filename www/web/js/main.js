@@ -162,22 +162,6 @@ function initGraph(data, skipJauge){
     values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
   }
   
-  	var datalength = data.length;
-	//On trie a l'envers car highchart fait une erreur si on ajoute pas les points dans un ordre ascendant
-	//La requete SQL elle est desc pour avoir toujours les points
-
-	for (var i = datalength - 1; i > 0; i--) {
-		values.tupleSon.push([ Date.parse(data[i].date),
-				parseFloat(data[i].sonMin), parseFloat(data[i].sonMax) ]);
-		values.moyenneSon.push([ Date.parse(data[i].date),
-				parseFloat(data[i].sonMoy) ]);
-		values.humidity.push([ Date.parse(data[i].date),
-				parseFloat(data[i].humidity) ]);
-		values.lumiere.push([ Date.parse(data[i].date),
-				parseFloat(data[i].lumiere) ]);
-		values.temperature.push([ Date.parse(data[i].date),
-				parseFloat(data[i].temperature) ]);
-	}
 
   //Voir Main.js
   generateGraph(values);
