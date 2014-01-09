@@ -39,7 +39,7 @@ function generateGraphHumidite(data) {
 			var chartOption = commonCharts.clone(chartCourbeDefault);
 
 			chartOption.title.text = 'Humidité';
-			chartOption.chart.renderTo = 'bouchon';
+			chartOption.chart.renderTo = 'graphHumidite';
 			chartOption.tooltip.valueSuffix='%';
 			
 			chart = new Highcharts.Chart(chartOption);
@@ -64,7 +64,7 @@ function generateGraphSon(data) {
 			var chartOption = commonCharts.clone(chartCourbeDefault);
 
 			chartOption.title.text = 'Son';
-			chartOption.chart.renderTo = 'bouchon2';
+			chartOption.chart.renderTo = 'graphSon';
 			
 			chart = new Highcharts.Chart(chartOption);
 			
@@ -84,7 +84,7 @@ function generateGraphLumiere(data) {
 			var chartOption = commonCharts.clone(chartCourbeDefault);
 
 			chartOption.title.text = 'Lumiere';
-			chartOption.chart.renderTo = 'bouchon3';
+			chartOption.chart.renderTo = 'graphLumiere';
 			
 			chart = new Highcharts.Chart(chartOption);
 			

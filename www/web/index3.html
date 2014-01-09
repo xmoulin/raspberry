@@ -11,7 +11,6 @@
   <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/main2.css" rel="stylesheet">
   <script src="./js/jquery-1.10.2.min.js"></script>
-
   <script type="text/javascript">
   $(function () {
     $.get('../data-monitoring2.php?limit=50', function( data ) {
@@ -22,6 +21,9 @@
 </head> 
 <body>
   <div class="container">
+    <div id="fixe">
+        <div style="display: none" class="alert alert-danger alert-dismissable">Bonjour Jean-Marie!</div>
+    </div>
     <div class="panel panel-primary">
       <div class="panel-heading">
         <div class="row">
@@ -47,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" id="panelHistorique">
       <div class="panel-heading">
         <div class="row">
           <div class="col-xs-5">
@@ -95,19 +97,42 @@
                 <div id="graphTemperature" style="height: 400px"></div>
               </div>
               <div class="col-md-6">
-                <div id="bouchon" style="height: 400px"></div>
+                <div id="graphHumidite" style="height: 400px"></div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <div id="bouchon2" style="height: 400px"></div>
+                <div id="graphSon" style="height: 400px"></div>
               </div>
               <div class="col-md-6">
-                <div id="bouchon3" style="height: 400px"></div>
+                <div id="graphLumiere" style="height: 400px"></div>
               </div>
             </div>
           </div>
       </div>
+    </div>
+  </div>
+  <div id="imageRemi"></div>
+  <div class="btn-group-wrap" style="text-align: right;">
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-default">
+          <div id="bt-loadDataBouton" type="button" class="btn btn-default btn-lg">loadDataBouton</div>
+        </label>
+        <label class="btn btn-default">
+          <div id="bt-toggleBouton" type="button" class="btn btn-default btn-lg">toggleBouton</div>
+        </label>
+        <label class="btn btn-default">
+          <div id="bt-adminBouton" type="button" class="btn btn-default btn-lg">adminBouton</div>
+        </label>
+        <label class="btn btn-default">
+          <div id="bt-NFC-Xavier" type="button" class="btn btn-default btn-lg">NFC-Xavier</div>
+        </label>
+        <label class="btn btn-default">
+          <div id="bt-NFC-Jean-Marie" type="button" class="btn btn-default btn-lg">NFC-Jean-Marie</div>
+        </label>
+        <label class="btn btn-default">
+          <div id="bt-NFC-Remi" type="button" class="btn btn-default btn-lg">NFC-Rémi</div>
+        </label>
     </div>
   </div>
   <!-- /container -->
@@ -130,10 +155,11 @@
 	</script>
   <![endif]-->
   
-  <script src="./js/graphsBouchons.js"></script>
+  <script src="./js/graphsSimpleCourbe.js"></script>
   <script src="./js/main.js"></script>
-  <script src="./js/graphs.js"></script>
+  <script src="./js/graphsMultiCourbe.js"></script>
   <script src="./js/commonCharts.js"></script>
+  <script src="./js/graphsJauge.js"></script>
 
 </body>
 

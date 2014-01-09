@@ -3,6 +3,15 @@ body {
   padding-top: 5px;
 }
 
+/*Si tag NFC rémi, on affiche une image en BG */
+#imageRemi.remi{
+  background-image: url(../img/bg-remi.png);
+  background-repeat:no-repeat;
+  background-position: center center;
+  min-height: 800px;
+  margin-top: -50px;
+}
+
 .btn-group-wrap {
     text-align: center;
 }
@@ -22,3 +31,22 @@ body {
 .ui-group-buttons .btn{float:left;border-radius:0}
 .ui-group-buttons .btn:first-child{margin-left:0;border-top-left-radius:.25em;border-bottom-left-radius:.25em;padding-right:15px}
 .ui-group-buttons .btn:last-child{border-top-right-radius:.25em;border-bottom-right-radius:.25em;padding-left:15px}
+
+#fixe
+{
+	padding-top		: 10px;
+	margin-top		: -3px;
+    position        : fixed;
+    top             : 0;
+    z-index			: 4;
+    margin-left		: 10px;
+    opacity			: 0.8;
+}
+
+#fixe div
+{
+    /*width           : 900px;*/
+    margin          : 0 auto;
+    font            : bold italic 20px times new roman, serif;
+    text-align		: center;
+}
