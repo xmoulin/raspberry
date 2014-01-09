@@ -1,5 +1,7 @@
+#Lancer le script via /home/pi/comArduino/startXmnSondeRF.sh pour qu il passe en bg tout seul
 import serial
 import json
+import sys
 from datetime import datetime
 import MySQLdb
 
@@ -44,10 +46,12 @@ print("debut")
 #{"action":"NFC","id":" 44 94 72 1A"}
 ser = serial.Serial('/dev/ttyAMA0',9600)
 while 1 :
-	line = ser.readline().rstrip()
-	print(line)
-	if (line.startswith('{')): 
-		print('on a du json sur la ligne ci-dessus')
-		print(json.loads(line,object_hook=xmnData))
-#		print(xmnData(line))	
-
+	try:
+		line = ser.readline().rstrip()
+		print(line)
+		if (line.startswith('{')): 
+			print('on a du json sur la ligne ci-dessus')
+			print(json.loads(line,object_hook=xmnData))
+#			print(xmnData(line))	
+	except:
+		print "J ai une erreur:", sys.exc_info()[0]
