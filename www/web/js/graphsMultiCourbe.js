@@ -25,7 +25,7 @@ function generateGraph(data){
             }
         }
     },
-        yAxis: [{ // Primary yAxis
+    yAxis: [{ // Primary yAxis
             labels: {
                 format: '{value}°C',
                 style: {

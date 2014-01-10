@@ -11,29 +11,14 @@ var chartCourbeDefault = {
 		chart: {
 			type: 'arearange',
 			zoomType: 'x',
-			events: {
-					//On surcharge la methode zoom
-					selection: function(event) {
-						
-						if(inverseZoom){
-							//cas zoom negatif
-							Xextremes = this.xAxis[0].getExtremes();
-							Yextremes = this.yAxis[0].getExtremes();
-							
-							gapY = event.yAxis[0].max - event.yAxis[0].min;
-							gapX = event.xAxis[0].max - event.xAxis[0].min;
-							this.yAxis[0].setExtremes(Yextremes.min - gapY, Yextremes.max + gapY);
-							this.xAxis[0].setExtremes(Xextremes.min - gapX, Xextremes.max + gapX);
-						}
-						//cas zoom positif	
-						else{
-							this.yAxis[0].setExtremes(event.yAxis[0].min, event.yAxis[0].max);
-							this.xAxis[0].setExtremes(event.xAxis[0].min, event.xAxis[0].max);
-						}
-												
-						return false;
-					}
-				}
+			resetZoomButton: {
+                position: {
+                    // align: 'right', // by default
+                    // verticalAlign: 'top', // by default
+                    x: 0,
+                    y: -30
+                }
+            }
             //zoomType: 'xy'
         },
         credits: {
@@ -250,14 +235,10 @@ function generateGraphLumiere(data) {
 	//Methode qui met a jour le deuxieme graphique
 	function zoomEvent(chart1, chart2) {
 
-	
-				
 		Xextremes1 = chart1.highcharts().xAxis[0].getExtremes();
 		Xextremes2 = chart2.highcharts().xAxis[0].getExtremes();
 
         chart2.highcharts().xAxis[0].setExtremes(Xextremes1.min,Xextremes1.max);
-		
-
 
 	};		
 		

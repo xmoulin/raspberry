@@ -61,6 +61,7 @@ function toggleGraph(){
     $('#unSeulGraph-Radio').click();
   }
 }
+
 $('#unSeulGraph-Radio').click(function(e) {
 		$("#NGraph").removeClass("active").hide("slow");	
 		$("#unSeulGraph").addClass("active").show("slow",
@@ -106,21 +107,69 @@ $('#periode label').click(function (e) {
 function switchPeriode(selection) {
     switch (selection) {
       case "Heure":
+			Highcharts.theme = {
+					xAxis: {
+						labels : {
+							format: '{value:%H:%M }'
+						}
+						
+					}
+			};
+				   
+			// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
         $.get('../data-monitoring2.php?limit=50', function( data ) {
             initGraph(data,true);}
           );
         break;
       case "Journee":
+	  
+		Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value:%H:%M }'
+					}
+					
+				}
+		};
+			   
+		// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+		
         $.get('../data-monitoring2.php?limit=150', function( data ) {
             initGraph(data, true);}
           );
         break;
       case "Semaine":
+	  	Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value: %d/%m/%Y }'
+					}					
+				}
+		}
+	  
+	  			// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
+	  
         $.get('../data-monitoring2.php?limit=350', function( data ) {
             initGraph(data,true);}
           );
         break;
-      default:
+      default:		
+		Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value: %d/%m/%Y }'
+					}					
+				}
+		}
+	  
+	  	// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+	  
         $.get('../data-monitoring2.php?limit=1000', function( data ) {
             initGraph(data, true);}
           );
