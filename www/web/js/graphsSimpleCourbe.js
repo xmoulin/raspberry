@@ -3,15 +3,45 @@
  */
 var graphs = (function() {
 
+//variable qui empeche la boucle infini lors du zoom simutltané
+verrouZoom = true;
+inverseZoom = false;
+		
 var chartCourbeDefault = {
 		chart: {
 			type: 'arearange',
-			zoomType: 'x'
+			zoomType: 'x',
+			events: {
+					//On surcharge la methode zoom
+					selection: function(event) {
+						
+						if(inverseZoom){
+							//cas zoom negatif
+							Xextremes = this.xAxis[0].getExtremes();
+							Yextremes = this.yAxis[0].getExtremes();
+							
+							gapY = event.yAxis[0].max - event.yAxis[0].min;
+							gapX = event.xAxis[0].max - event.xAxis[0].min;
+							this.yAxis[0].setExtremes(Yextremes.min - gapY, Yextremes.max + gapY);
+							this.xAxis[0].setExtremes(Xextremes.min - gapX, Xextremes.max + gapX);
+						}
+						//cas zoom positif	
+						else{
+							this.yAxis[0].setExtremes(event.yAxis[0].min, event.yAxis[0].max);
+							this.xAxis[0].setExtremes(event.xAxis[0].min, event.xAxis[0].max);
+						}
+												
+						return false;
+					}
+				}
             //zoomType: 'xy'
         },
         credits: {
            enabled: false
        },
+	   legend: {
+			enabled: false
+	},
        title: {
 		text : 'Titre par defaut',
     },
@@ -24,8 +54,13 @@ var chartCourbeDefault = {
                 fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif'
             }
-        }
+        } 
     },
+    yAxis: [{ // Primary yAxis
+            title: {
+                 enabled: false
+            }
+        }],
   tooltip: {
     crosshairs: true,
     shared: true
@@ -35,12 +70,78 @@ legend: {
 }
 };
 
+
+function generateGraphTemperature(data)
+{
+			var chartOption = commonCharts.clone(chartCourbeDefault);
+
+			chartOption.title.text = 'Température';
+			chartOption.chart.renderTo = 'graphTemperature';
+			chartOption.tooltip.valueSuffix='°C';
+			chartOption.xAxis.events ={
+			//Cet evenement nous indique lorsqu'il y a eu un zoom
+			afterSetExtremes: function(event) {
+				if(verrouZoom)
+				{	
+					verrouZoom = false;
+					zoomEvent($('#graphTemperature'), $('#graphSon'));
+					zoomEvent($('#graphTemperature'), $('#graphHumidite'));
+					zoomEvent($('#graphTemperature'), $('#graphLumiere'));
+					verrouZoom = true;
+				}
+			} 
+			}
+			chartOption.yAxis[0].labels ={
+					format: '{value} °C',
+					style: {
+						color: '#AA4643'
+					}
+				};
+			
+			chart = new Highcharts.Chart(chartOption);
+			
+			serie = {
+				name: 'Température',
+				type: 'spline',
+				color: '#AA4643',
+				data: data.temperature,
+				marker: {
+					enabled: false
+				},
+				tooltip: {
+					valueSuffix: '°C'
+				}
+			}
+   
+			chart.addSeries(serie);
+}
+
 function generateGraphHumidite(data) {
 			var chartOption = commonCharts.clone(chartCourbeDefault);
 
 			chartOption.title.text = 'Humidité';
 			chartOption.chart.renderTo = 'graphHumidite';
 			chartOption.tooltip.valueSuffix='%';
+			chartOption.xAxis.events ={
+			//Cet evenement nous indique lorsqu'il y a eu un zoom
+			afterSetExtremes: function(event) {
+				if(verrouZoom)
+				{
+					verrouZoom = false;
+					zoomEvent($('#graphHumidite'), $('#graphSon'));
+					zoomEvent($('#graphHumidite'), $('#graphTemperature'));
+					zoomEvent($('#graphHumidite'), $('#graphLumiere'));
+					verrouZoom = true;
+				}
+			}
+			};
+			
+			chartOption.yAxis[0].labels ={
+					format: '{value} %',
+					style: {
+						color: '#4572A7'
+					}
+				};
 			
 			chart = new Highcharts.Chart(chartOption);
 			
@@ -65,6 +166,27 @@ function generateGraphSon(data) {
 
 			chartOption.title.text = 'Son';
 			chartOption.chart.renderTo = 'graphSon';
+			chartOption.xAxis.events ={
+			//Cet evenement nous indique lorsqu'il y a eu un zoom
+			afterSetExtremes: function(event) {
+				if(verrouZoom)
+				{
+					verrouZoom = false;
+					zoomEvent($('#graphSon'), $('#graphHumidite'));
+					zoomEvent($('#graphSon'), $('#graphLumiere'));
+					zoomEvent($('#graphSon'), $('#graphTemperature'));
+							verrouZoom = true;
+					}
+				}
+			};
+			
+			chartOption.yAxis[0].labels =
+			{
+					format: '{value} Db',
+					style: {
+						color: '#FF99FF'
+					}
+			};			
 			
 			chart = new Highcharts.Chart(chartOption);
 			
@@ -85,28 +207,65 @@ function generateGraphLumiere(data) {
 
 			chartOption.title.text = 'Lumiere';
 			chartOption.chart.renderTo = 'graphLumiere';
+			chartOption.xAxis.events ={
+			//Cet evenement nous indique lorsqu'il y a eu un zoom
+			afterSetExtremes: function(event) {
+				if(verrouZoom)
+				{
+					verrouZoom = false;
+					zoomEvent($('#graphLumiere'), $('#graphSon'));
+					zoomEvent($('#graphLumiere'), $('#graphHumidite'));
+					zoomEvent($('#graphLumiere'), $('#graphTemperature'));
+							verrouZoom = true;
+				}
+			}
+			};
+			chartOption.yAxis[0].labels = 
+			{
+					format: '{value} lux',
+					style: {
+						color: '#8bbc21'
+					}
+			};
+			
 			
 			chart = new Highcharts.Chart(chartOption);
 			
 			serie = {
 					name: 'Lumiere',
 					type: 'spline',
-					acolor: '#4572A7',
-					data: data.humidity,
+					color: '#8bbc21',
+					data: data.lumiere,
 					marker: {
-					enabled: false
+						enabled: false
 					},
 					tooltip: {
 						valueSuffix: 'lux'
 					}
-			}
+			};
    
 			chart.addSeries(serie);
 		};
 
+	//Methode qui met a jour le deuxieme graphique
+	function zoomEvent(chart1, chart2) {
+
+	
+				
+		Xextremes1 = chart1.highcharts().xAxis[0].getExtremes();
+		Xextremes2 = chart2.highcharts().xAxis[0].getExtremes();
+
+        chart2.highcharts().xAxis[0].setExtremes(Xextremes1.min,Xextremes1.max);
+		
+
+
+	};		
+		
+		
   //Publics members
   return {
 	  	"generateGraphBouchon" :function generateGraphBouchon(data) {
+			generateGraphTemperature(data)
 			generateGraphHumidite(data);
 			generateGraphSon(data);
 			generateGraphLumiere(data);
