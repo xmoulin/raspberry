@@ -1,7 +1,9 @@
+#!/usr/bin/python
 #Lancer le script via /home/pi/comArduino/startXmnSondeRF.sh pour qu il passe en bg tout seul
 import serial
 import json
 import sys
+import logging
 from datetime import datetime
 import MySQLdb
 
@@ -31,7 +33,8 @@ def xmnData(donnees):
 		return donnees['action']
      return donnees
 
-print("debut")
+logging.basicConfig(filename='/var/log/comArduino-python.log',level=logging.DEBUG) 
+logging.info("debut "+datetime.now().isoformat())
 #
 # Exemple de flux possible
 #
@@ -48,10 +51,13 @@ ser = serial.Serial('/dev/ttyAMA0',9600)
 while 1 :
 	try:
 		line = ser.readline().rstrip()
-		print(line)
+		logging.debug(line)
 		if (line.startswith('{')): 
-			print('on a du json sur la ligne ci-dessus')
-			print(json.loads(line,object_hook=xmnData))
-#			print(xmnData(line))	
+			logging.debug(datetime.now().isoformat() + 'on a du json sur la ligne ci-dessus')
+			logging.debug(json.loads(line,object_hook=xmnData))
+#			logging.debug(xmnData(line))	
+	except KeyboardInterrupt:
+		logging.warning("interruption clavier, arret du programme")
+		quit()
 	except:
-		print "J ai une erreur:", sys.exc_info()[0]
+		logging.error("J ai une erreur:", sys.exc_info()[0])
