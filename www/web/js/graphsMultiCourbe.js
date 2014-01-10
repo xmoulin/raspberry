@@ -25,7 +25,7 @@ function generateGraph(data){
             }
         }
     },
-        yAxis: [{ // Primary yAxis
+    yAxis: [{ // Primary yAxis
             labels: {
                 format: '{value}°C',
                 style: {
@@ -135,61 +135,6 @@ series: [{
 }, {
  name: 'Temperature',
  type: 'spline',
- color: '#AA4643',
- data: data.temperature,
- marker: {
-    enabled: false
- },
- tooltip: {
-    valueSuffix: '°C'
-}
-}]
-});
-
-
-$('#graphTemperature').highcharts({
-        chart: {
-            type: 'spline',
-            zoomType: 'x'
-        },
-        credits: {
-           enabled: false
-       },
-       title: {
-        text: 'Température'
-    },
-    xAxis: {
-        type: 'datetime',
-        labels: {
-            rotation: -45,
-            align: 'right',
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
-    },
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{value}°C',
-                style: {
-                    color: '#AA4643'
-                }
-            },
-            title: {
-                 enabled: false
-            }
-        }],
-  tooltip: {
-    crosshairs: true,
-    shared: true,
-    valueSuffix: '°C'
-},
-legend: {
-   enabled: false
-},
-series: [{
- name: 'Temperature',
  color: '#AA4643',
  data: data.temperature,
  marker: {

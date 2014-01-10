@@ -61,6 +61,7 @@ function toggleGraph(){
     $('#unSeulGraph-Radio').click();
   }
 }
+
 $('#unSeulGraph-Radio').click(function(e) {
 		$("#NGraph").removeClass("active").hide("slow");	
 		$("#unSeulGraph").addClass("active").show("slow",
@@ -106,21 +107,69 @@ $('#periode label').click(function (e) {
 function switchPeriode(selection) {
     switch (selection) {
       case "Heure":
+			Highcharts.theme = {
+					xAxis: {
+						labels : {
+							format: '{value:%H:%M }'
+						}
+						
+					}
+			};
+				   
+			// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
         $.get('../data-monitoring2.php?limit=50', function( data ) {
             initGraph(data,true);}
           );
         break;
       case "Journee":
+	  
+		Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value:%H:%M }'
+					}
+					
+				}
+		};
+			   
+		// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+		
         $.get('../data-monitoring2.php?limit=150', function( data ) {
             initGraph(data, true);}
           );
         break;
       case "Semaine":
+	  	Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value: %d/%m/%Y }'
+					}					
+				}
+		}
+	  
+	  			// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
+	  
         $.get('../data-monitoring2.php?limit=350', function( data ) {
             initGraph(data,true);}
           );
         break;
-      default:
+      default:		
+		Highcharts.theme = {
+				xAxis: {
+					labels : {
+						format: '{value: %d/%m/%Y }'
+					}					
+				}
+		}
+	  
+	  	// //Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+	  
         $.get('../data-monitoring2.php?limit=1000', function( data ) {
             initGraph(data, true);}
           );
@@ -162,22 +211,6 @@ function initGraph(data, skipJauge){
     values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
   }
   
-  	var datalength = data.length;
-	//On trie a l'envers car highchart fait une erreur si on ajoute pas les points dans un ordre ascendant
-	//La requete SQL elle est desc pour avoir toujours les points
-
-	for (var i = datalength - 1; i > 0; i--) {
-		values.tupleSon.push([ Date.parse(data[i].date),
-				parseFloat(data[i].sonMin), parseFloat(data[i].sonMax) ]);
-		values.moyenneSon.push([ Date.parse(data[i].date),
-				parseFloat(data[i].sonMoy) ]);
-		values.humidity.push([ Date.parse(data[i].date),
-				parseFloat(data[i].humidity) ]);
-		values.lumiere.push([ Date.parse(data[i].date),
-				parseFloat(data[i].lumiere) ]);
-		values.temperature.push([ Date.parse(data[i].date),
-				parseFloat(data[i].temperature) ]);
-	}
 
   //Voir Main.js
   generateGraph(values);
