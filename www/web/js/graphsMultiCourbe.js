@@ -12,7 +12,7 @@ function generateGraph(data){
         text: 'Sonde de l\'open space'
     },
     subtitle: {
-        text: 'Temperature / Humidité / Lumiere / Son - Zoomable'
+        text: 'Température / Humidité / Lumière / Son - Zoomable'
     },
     xAxis: {
         type: 'datetime',
