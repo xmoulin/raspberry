@@ -7,7 +7,8 @@ var jaugeChartDefault = {
 			plotBackgroundColor: null,
 			plotBackgroundImage: null,
 			plotBorderWidth: 0,
-			plotShadow: false
+			plotShadow: false,
+			margin:[25,0,0,0]
 		},
         credits: {
          enabled: false
@@ -246,17 +247,32 @@ function generateJaugeLumiere(data) {
   //Publics members
   return {
 	  	"generateGraph" :function generateGraph(majJauge) {
-		
-			//		setInterval(function() {
-			//			y = Math.round(Math.random() * 100);
-			//			var point = chart.series[0].points[0];
-			//			point.update(y);
-			//		}, 1000);
-		
 			generateJaugeSon(majJauge);
 			generateJaugeTemperature(majJauge);
 			generateJaugeHumidite(majJauge);
 			generateJaugeLumiere(majJauge);
+		},
+		"update" : 	function updateJauges (temperature,humidite,lumiere,son) {
+			if($('#jaugeTemperature').highcharts() !== undefined)
+			{
+			var point = $('#jaugeTemperature').highcharts().series[0].points[0];
+			point.update(temperature,true,true);
+			}
+			if($('#jaugeHumidite').highcharts() !== undefined)
+			{
+				var point = $('#jaugeHumidite').highcharts().series[0].points[0];
+				point.update(humidite,true,true);
+			}
+			if($('#jaugeLumiere').highcharts() !== undefined)
+			{
+				var point = $('#jaugeLumiere').highcharts().series[0].points[0];
+				point.update(lumiere,true,true);	
+			}
+			if($('#jaugeSon').highcharts() !== undefined)
+			{
+				var point = $('#jaugeSon').highcharts().series[0].points[0];
+				point.update(son,true,true);
+			}
 		}
 	}
 })();
