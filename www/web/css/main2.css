@@ -50,3 +50,8 @@ body {
     font            : bold italic 20px times new roman, serif;
     text-align		: center;
 }
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
