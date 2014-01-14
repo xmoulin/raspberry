@@ -20,6 +20,7 @@ $('#NGraph-Radio').click(function (e) {
   toggleGraphById($("#NGraph"), $("#unSeulGraph"));
 });
 
+
 //On affiche JMP
 //On passe ne mode 4 graphes
 //On affiche les données de la journée (2eme label en utilisation l'index des labels depuis la balise periode)
@@ -97,6 +98,9 @@ $('#periode label').click(function (e) {
     var selection = this.firstChild.nextSibling.id;
     switchPeriode(selection);
 });
+
+
+
 
 //Fonction permettant de changer de période
 //selection peut prendre les valeurs:
