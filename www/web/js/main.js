@@ -1,3 +1,9 @@
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
+
 //Utile pour debugger en attendant l'activation websocket
 $('#bt-toggleBouton').click(function (e) {
   toggleGraph();
