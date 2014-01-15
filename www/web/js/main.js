@@ -1,3 +1,9 @@
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
+
 //Utile pour debugger en attendant l'activation websocket
 $('#bt-toggleBouton').click(function (e) {
   toggleGraph();
@@ -19,6 +25,7 @@ $('#unSeulGraph-Radio').click(function (e) {
 $('#NGraph-Radio').click(function (e) {
   toggleGraphById($("#NGraph"), $("#unSeulGraph"));
 });
+
 
 //On affiche JMP
 //On passe ne mode 4 graphes
@@ -97,6 +104,9 @@ $('#periode label').click(function (e) {
     var selection = this.firstChild.nextSibling.id;
     switchPeriode(selection);
 });
+
+
+
 
 //Fonction permettant de changer de période
 //selection peut prendre les valeurs:

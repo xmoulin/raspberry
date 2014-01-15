@@ -256,22 +256,22 @@ function generateJaugeLumiere(data) {
 			if($('#jaugeTemperature').highcharts() !== undefined)
 			{
 			var point = $('#jaugeTemperature').highcharts().series[0].points[0];
-			point.update(temperature,true,true);
+			point.update(temperature,true,{duration: 1000});
 			}
 			if($('#jaugeHumidite').highcharts() !== undefined)
 			{
 				var point = $('#jaugeHumidite').highcharts().series[0].points[0];
-				point.update(humidite,true,true);
+				point.update(humidite,true,{duration: 1000});
 			}
 			if($('#jaugeLumiere').highcharts() !== undefined)
 			{
 				var point = $('#jaugeLumiere').highcharts().series[0].points[0];
-				point.update(lumiere,true,true);	
+				point.update(lumiere,true,{duration: 1000});	
 			}
 			if($('#jaugeSon').highcharts() !== undefined)
 			{
 				var point = $('#jaugeSon').highcharts().series[0].points[0];
-				point.update(son,true,true);
+				point.update(son,true,{duration: 1000});
 			}
 		}
 	}

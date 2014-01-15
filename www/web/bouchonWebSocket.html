@@ -1,0 +1,74 @@
+﻿<html>
+<head>
+<title>WebSocket</title>
+
+<style>
+ html,body{font:normal 0.9em arial,helvetica;}
+ #log {width:440px; height:200px; border:1px solid #7F9DB9; overflow:auto;}
+ #msg {width:330px;}
+</style>
+
+<script>
+var socket;
+
+function init(){
+  var host = "ws://localhost:9000";
+  try{
+    socket = new WebSocket(host);
+    log('WebSocket - status '+socket.readyState);
+    socket.onopen    = function(msg){ log("Welcome - status "+this.readyState); };
+    socket.onmessage = function(msg){ log("Received: "+msg.data); };
+    socket.onclose   = function(msg){ log("Disconnected - status "+this.readyState); };
+	
+	setInterval(function() {
+		var temperature = 5 + Math.round(Math.random() * 30);
+		var son = Math.round(Math.random() * 80);
+		var humidite = 10 + Math.round(Math.random() * 80);
+		var lumiere = 0 + Math.round(Math.random() * 200);
+		var date = (new Date()).getTime(); // current time
+		
+		var send = {
+			temperatureEau:"22.1875",
+			temperature:temperature,
+			humidity:humidite,
+			date:date,
+			sonMin:"45",
+			sonMax:"53",
+			sonMoy:son,
+			gaz:"1.709",
+			lumiere:lumiere};
+		
+		socket.send(JSON.stringify(send));
+		}, 5000);
+	
+  }
+  catch(ex){ log(ex); }
+  $("msg").focus();
+
+}
+
+function send(){
+  socket.send("hello");
+}
+function quit(){
+  log("Goodbye!");
+  socket.close();
+  socket=null;
+}
+
+// Utilities
+function $(id){ return document.getElementById(id); }
+function log(msg){ $("log").innerHTML+="<br>"+msg; }
+function onkey(event){ if(event.keyCode==13){ send(); } }
+</script>
+
+</head>
+<body onload="init()">
+ <h3>WebSocket v2.00</h3>
+ <div id="log"></div>
+ <input id="msg" type="textbox" onkeypress="onkey(event)"/>
+ <button onclick="send()">Send</button>
+ <button onclick="quit()">Quit</button>
+ <div>Commands: hello, hi, name, age, date, time, thanks, bye</div>
+</body>
+</html>
