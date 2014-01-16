@@ -1,5 +1,5 @@
 
-var socket = new WebSocket("ws://localhost:9000"); 
+var socket = new WebSocket("ws://"+window.location.hostname+":9000"); 
 
 function onWSOpen(evt)
 {
