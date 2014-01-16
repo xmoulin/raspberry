@@ -13,7 +13,6 @@ function onWSOpen(evt)
 function onWSClose(evt)
 {
 	console.log("Websocket fermé");
-	console.log(websocket.readyState);
 }
 
 function onWSMessage(evt)
@@ -21,18 +20,38 @@ function onWSMessage(evt)
 	console.log(evt.data);
 	var data = jQuery.parseJSON(evt.data);
 	
-	graphsJauge.update(data.temperature,data.humidity,data.lumiere,data.sonMoy);
-	var series = $('#main-graph').highcharts().series[1];
-    series.addPoint([data.date, data.sonMoy], true, true);
+	if (data.iteration)
+	{
+		graphsMultiCourbe.update(data);
+		graphsJauge.update(data.temperature,data.humidity,data.lumiere,data.sonMoy);
+	}
+	else if (data.action =='NFC')
+	{
+	 if(data.id ==' D5 28 FE B0')
+	 {
+		activeNFCXavier();
+	 }
+	 else if(data.id ==' 04 C4 5D 82 BA 29 80')
+	 {
+		activeNFCJeanMarie();
+	 }
+	 else if(data.id ==' 44 94 72 1A')
+	 {
+		activeNFCRemi();
+	 }
+	}
+	else if(data.action=='loadDataBouton')
+	{
 	
-	var series = $('#main-graph').highcharts().series[2];
-    series.addPoint([data.date, data.humidity], true, true);
+	}
+	else if(data.action=='toggleBouton')
+	{
+		toggleGraph();
+	}
+	else if(data.action=='adminBouton')
+	{
 	
-	var series = $('#main-graph').highcharts().series[3];
-    series.addPoint([data.date, data.lumiere], true, true);
-	
-	var series = $('#main-graph').highcharts().series[4];
-    series.addPoint([data.date, data.temperature], true, true);
+	}
 }
 
 function onWSError(evt)

@@ -223,7 +223,7 @@ function initGraph(data, skipJauge){
   
 
   //Voir Main.js
-  generateGraph(values);
+  graphsMultiCourbe.generateGraph(values);
 
   //Sur la selection d'un periode, on n'a pas besoin de mettre à jour la jauge.
   //Elle doit se mettre à jour par ailleurs par push de valeurs dans highCharts

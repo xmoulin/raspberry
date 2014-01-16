@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <title>WebSocket</title>
 
@@ -19,6 +19,44 @@ function init(){
     socket.onopen    = function(msg){ log("Welcome - status "+this.readyState); };
     socket.onmessage = function(msg){ log("Received: "+msg.data); };
     socket.onclose   = function(msg){ log("Disconnected - status "+this.readyState); };
+
+
+//	setInterval(function() {
+//			var actionSend = {
+//			action:"toggleBouton"
+//		};
+//			socket.send(JSON.stringify(actionSend));}
+//	,1000);
+	
+//	setInterval(function() {
+//			var actionSend = {
+//			action:"NFC",
+//		id:" D5 28 FE B0"
+//		};
+//			socket.send(JSON.stringify(actionSend));
+//	}
+//	,2000);
+	
+	
+	
+	//setInterval(function() {
+	//		var actionSend = {
+	//		action:"NFC",
+	//		id:" 04 C4 5D 82 BA 29 80"
+	//	};
+	//		socket.send(JSON.stringify(actionSend));
+	//}
+	//,3000);
+	
+	setInterval(function() {
+		var actionSend = {
+			action:"NFC",
+			id:" 44 94 72 1A"
+		};
+			socket.send(JSON.stringify(actionSend));
+	}
+	,4000);
+	
 	
 	setInterval(function() {
 		var temperature = 5 + Math.round(Math.random() * 30);
@@ -28,17 +66,19 @@ function init(){
 		var date = (new Date()).getTime(); // current time
 		
 		var send = {
-			temperatureEau:"22.1875",
+			iteration:"3",
+			sonMin:"0",
+			sonMax:"14",
+			sonMoy:son,
+			gaz:"3",
+			lumiere:lumiere,
 			temperature:temperature,
 			humidity:humidite,
-			date:date,
-			sonMin:"45",
-			sonMax:"53",
-			sonMoy:son,
-			gaz:"1.709",
-			lumiere:lumiere};
+			date:date
+			};
 		
 		socket.send(JSON.stringify(send));
+	
 		}, 5000);
 	
   }

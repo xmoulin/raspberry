@@ -250,5 +250,8 @@ function generateGraphLumiere(data) {
 			generateGraphHumidite(data);
 			generateGraphSon(data);
 			generateGraphLumiere(data);
+		},
+		"update" : function generateGraphBouchon(data) { 		
+			
 		}
 }})();
