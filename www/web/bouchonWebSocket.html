@@ -48,27 +48,28 @@ function init(){
 	//}
 	//,3000);
 	
-	setInterval(function() {
-		var actionSend = {
-			action:"NFC",
-			id:" 44 94 72 1A"
-		};
-			socket.send(JSON.stringify(actionSend));
-	}
-	,4000);
+	//setInterval(function() {
+	//	var actionSend = {
+	//		action:"NFC",
+	//		id:" 44 94 72 1A"
+	//	};
+	//		socket.send(JSON.stringify(actionSend));
+	//}
+	//,4000);
 	
 	
 	setInterval(function() {
 		var temperature = 5 + Math.round(Math.random() * 30);
 		var son = Math.round(Math.random() * 80);
+		var sonMax = Math.round(Math.random() * 80);
 		var humidite = 10 + Math.round(Math.random() * 80);
 		var lumiere = 0 + Math.round(Math.random() * 200);
 		var date = (new Date()).getTime(); // current time
 		
 		var send = {
 			iteration:"3",
-			sonMin:"0",
-			sonMax:"14",
+			sonMin:0,
+			sonMax:sonMax,
 			sonMoy:son,
 			gaz:"3",
 			lumiere:lumiere,

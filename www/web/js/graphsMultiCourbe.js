@@ -3,7 +3,10 @@ var graphsMultiCourbe = (function() {
 
   //Publics members
   return {
-		"update" : function generateGraphBouchon(data) { 		
+		"update" : function generateGraphBouchon(data) {
+			var series = $('#main-graph').highcharts().series[0];
+			series.addPoint([data.date,data.sonMin,data.sonMax], true, true);
+ 		
 			var series = $('#main-graph').highcharts().series[1];
 			series.addPoint([data.date, data.sonMoy], true, true);
 	

@@ -23,6 +23,7 @@ function onWSMessage(evt)
 	if (data.iteration)
 	{
 		graphsMultiCourbe.update(data);
+		graphs.update(data)
 		graphsJauge.update(data.temperature,data.humidity,data.lumiere,data.sonMoy);
 	}
 	else if (data.action =='NFC')
