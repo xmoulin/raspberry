@@ -129,7 +129,7 @@ function switchPeriode(selection) {
 			// //Apply the theme
 		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-        $.get('../data-monitoring2.php?limit=50', function( data ) {
+        $.get('../data-monitoring2.php?periode=Heure', function( data ) {
             initGraph(data,true);}
           );
         break;
@@ -147,7 +147,7 @@ function switchPeriode(selection) {
 		// //Apply the theme
 		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 		
-        $.get('../data-monitoring2.php?limit=150', function( data ) {
+        $.get('../data-monitoring2.php?periode=Journee', function( data ) {
             initGraph(data, true);}
           );
         break;
@@ -164,7 +164,7 @@ function switchPeriode(selection) {
 		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
 	  
-        $.get('../data-monitoring2.php?limit=350', function( data ) {
+        $.get('../data-monitoring2.php?periode=Semaine', function( data ) {
             initGraph(data,true);}
           );
         break;
@@ -180,7 +180,7 @@ function switchPeriode(selection) {
 	  	// //Apply the theme
 		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 	  
-        $.get('../data-monitoring2.php?limit=1000', function( data ) {
+        $.get('../data-monitoring2.php?periode=Mois', function( data ) {
             initGraph(data, true);}
           );
         break;
