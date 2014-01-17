@@ -5,7 +5,11 @@ import json
 import sys
 import logging
 from datetime import datetime
+from websocket import create_connection
 import MySQLdb
+
+#creation de la socket
+ws = create_connection("ws://localhost:9000/")
 
 db = MySQLdb.connect(host="localhost", # your host, usually localhost
                      user="pi", # your username
@@ -55,9 +59,11 @@ while 1 :
 		if (line.startswith('{')): 
 			logging.debug(datetime.now().isoformat() + 'on a du json sur la ligne ci-dessus')
 			logging.debug(json.loads(line,object_hook=xmnData))
+			ws.send(line)
 #			logging.debug(xmnData(line))	
 	except KeyboardInterrupt:
 		logging.warning("interruption clavier, arret du programme")
+		ws.close()
 		quit()
 	except:
 		logging.error("J ai une erreur:", sys.exc_info()[0])
