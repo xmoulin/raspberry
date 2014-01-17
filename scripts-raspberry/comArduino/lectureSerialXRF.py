@@ -3,6 +3,7 @@
 import serial
 import json
 import sys
+import traceback
 import logging
 from datetime import datetime
 from websocket import create_connection
@@ -23,7 +24,7 @@ cur = db.cursor()
 
 def xmnData(donnees):
      if 'iteration' in donnees:
-    donnees['date'] = datetime.now().isoformat()
+   	donnees['date'] = datetime.now().isoformat()
 	cur.execute('INSERT INTO indicateur (iteration, temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)', (donnees['iteration'], donnees['temperature'], donnees['humidity'],donnees['date'],donnees['sonMin'], donnees['sonMax'], donnees['sonMoy'], donnees['gaz'], donnees['lumiere']))
 #	cur.execute('INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity) VALUES (%s,%s,%s,%s)', (donnees['iteration'], donnees['temperatureEau'], donnees['temperature'], donnees['humidity']))
 #	cur.execute('INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity) VALUES (%s,%s,%s,%s)', (donnees['iteration'], 19.5523, 21.0, 50.0))
@@ -58,8 +59,16 @@ while 1 :
 		line = ser.readline().rstrip()
 		logging.debug(line)
 		if (line.startswith('{')): 
+			
+			#line["date"] = datetime.now().isoformat()
 			logging.debug(datetime.now().isoformat() + 'on a du json sur la ligne ci-dessus')
 			logging.debug(json.loads(line,object_hook=xmnData))
+			#Attention, c est pas beau: j'enleve le dernier caractere du flux json -> le '}'
+			#Pour apres le mettre la date au format "date":1389998386501} 
+ 			line=line[0:-1]
+			#line += ",\"date\":\""+ datetime.now().strftime('%Y-%m-%d %H:%M:%S')+"\"}"
+		 	line += ",\"date\":"+ str(int(datetime.now().strftime("%s"))*1000)+"}"
+			#apres ca on envoi dans la websocket
 			ws.send(line)
 #			logging.debug(xmnData(line))	
 	except KeyboardInterrupt:
@@ -67,4 +76,17 @@ while 1 :
 		ws.close()
 		quit()
 	except:
-		logging.error("J ai une erreur:", sys.exc_info()[0])
+#		logging.error("J ai une erreur:", sys.exc_info()[0])
+	    # Get the traceback object
+	    #
+	    tb = sys.exc_info()[2]
+	    tbinfo = traceback.format_tb(tb)[0]
+	
+	    # Concatenate information together concerning the error into a message string
+	    #
+	    pymsg = "PYTHON ERRORS:\nTraceback info:\n" + tbinfo + "\nError Info:\n" + str(sys.exc_info()[1])
+
+	    # Print Python error messages for use in Python / Python Window
+	    #
+	    print pymsg + "\n"
+
