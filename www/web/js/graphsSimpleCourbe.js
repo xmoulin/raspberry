@@ -250,5 +250,20 @@ function generateGraphLumiere(data) {
 			generateGraphHumidite(data);
 			generateGraphSon(data);
 			generateGraphLumiere(data);
+		},
+		"update" : function update(data) {
+			  
+			var series = $('#graphSon').highcharts().series[0];
+			series.addPoint([data.date,data.sonMin,data.sonMax], true, true);
+	
+			var series = $('#graphHumidite').highcharts().series[0];
+			series.addPoint([data.date, data.humidity], true, true);
+		
+			var series = $('#graphLumiere').highcharts().series[0];
+			series.addPoint([data.date, data.lumiere], true, true);
+	
+			var series = $('#graphTemperature').highcharts().series[0];
+			series.addPoint([data.date, data.temperature], true, true);
+
 		}
 }})();

@@ -1,4 +1,25 @@
-function generateGraph(data){
+
+var graphsMultiCourbe = (function() {
+
+  //Publics members
+  return {
+		"update" : function generateGraphBouchon(data) {
+			var series = $('#main-graph').highcharts().series[0];
+			series.addPoint([data.date,data.sonMin,data.sonMax], true, true);
+ 		
+			var series = $('#main-graph').highcharts().series[1];
+			series.addPoint([data.date, data.sonMoy], true, true);
+	
+			var series = $('#main-graph').highcharts().series[2];
+			series.addPoint([data.date, data.humidity], true, true);
+		
+			var series = $('#main-graph').highcharts().series[3];
+			series.addPoint([data.date, data.lumiere], true, true);
+	
+			var series = $('#main-graph').highcharts().series[4];
+			series.addPoint([data.date, data.temperature], true, true);
+		},
+		"generateGraph" : function generateGraph(data){
 	$('#main-graph').highcharts({
 		chart: {
 			type: 'arearange',
@@ -145,5 +166,5 @@ series: [{
 }
 }]
 });
-
 }
+}})();

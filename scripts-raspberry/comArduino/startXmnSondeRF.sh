@@ -6,6 +6,9 @@ echo "demarrage du PI: $laDate"
 #Envoi son ip par mail. Si ecran Nokia pas disponible
 ifconfig | mail -s "monIP a $laDate" innovation.sopra@gmail.com
 echo "sendMail OK"
+
+#Initialisation du serveur websocket
+php -f /var/www/serverWebSocket.php &
  
 #Execute la sonde pour capter les ondes RF
 #sh /home/pi/comArduino/execLectureSerialXRF.sh   > /var/log/comArduino.log

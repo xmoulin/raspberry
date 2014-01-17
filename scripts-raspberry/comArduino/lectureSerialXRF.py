@@ -23,7 +23,8 @@ cur = db.cursor()
 
 def xmnData(donnees):
      if 'iteration' in donnees:
-	cur.execute('INSERT INTO indicateur (iteration, temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)', (donnees['iteration'], donnees['temperature'], donnees['humidity'],datetime.now().isoformat(),donnees['sonMin'], donnees['sonMax'], donnees['sonMoy'], donnees['gaz'], donnees['lumiere']))
+    donnees['date'] = datetime.now().isoformat()
+	cur.execute('INSERT INTO indicateur (iteration, temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)', (donnees['iteration'], donnees['temperature'], donnees['humidity'],donnees['date'],donnees['sonMin'], donnees['sonMax'], donnees['sonMoy'], donnees['gaz'], donnees['lumiere']))
 #	cur.execute('INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity) VALUES (%s,%s,%s,%s)', (donnees['iteration'], donnees['temperatureEau'], donnees['temperature'], donnees['humidity']))
 #	cur.execute('INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity) VALUES (%s,%s,%s,%s)', (donnees['iteration'], 19.5523, 21.0, 50.0))
 #	cur.execute("INSERT INTO indicateur (iteration, temperatureEau, temperature, humidity) VALUES (1, 19.5523, 21.0, 50.0)")
