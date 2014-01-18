@@ -5,6 +5,12 @@ Highcharts.setOptions({
 });
 
 //Utile pour debugger en attendant l'activation websocket
+$('#bt-loadDataBouton').click(function (e) {
+  nextPeriode();
+});
+$('#bt-adminBouton').click(function (e) {
+  previousPeriode();
+});
 $('#bt-toggleBouton').click(function (e) {
   toggleGraph();
 });
@@ -26,7 +32,6 @@ $('#NGraph-Radio').click(function (e) {
   toggleGraphById($("#NGraph"), $("#unSeulGraph"));
 });
 
-
 //On affiche JMP
 //On passe ne mode 4 graphes
 //On affiche les données de la journée (2eme label en utilisation l'index des labels depuis la balise periode)
@@ -47,6 +52,8 @@ function activeNFCRemi(){
 
 function activeNFCXavier(){
   showFixeDiv("Xavier");
+  $('#periode label:eq(0)').click();
+  $('#unSeulGraph-Radio').click();
   //on compense les choses faites avec le user Remi
   $("#panelHistorique").show();
   $('#imageRemi').removeClass("remi");
@@ -57,6 +64,41 @@ function showFixeDiv(name){
   $("#fixe").html(chaineTexte).hide();
   //Pour avoir l effet apparition
   $("#fixe").show("Drop");
+}
+
+function nextPeriode(){
+  periode = (getPeriode() + 1);
+  if (periode == 4) { periode = 0;}
+  clickPeriodeBouton(periode);
+}
+
+function previousPeriode(){
+  periode = (getPeriode() - 1);
+  if (periode == -1) { periode = 3;}
+  clickPeriodeBouton(periode);
+}
+
+//Retourne la periode selectionne
+function getPeriode(){
+  //On ne peut pas faire simplement un toogle sinon on perd l'etat du click sur le bouton de menu
+  //On fait donc des click
+  if ($("#periode label:eq(0)").is('.active')) {
+    return 0;
+  } else if  ($("#periode label:eq(1)").is('.active')) {
+    return 1;
+  } else if ($("#periode label:eq(2)").is('.active')) {
+    return 2;
+  } else {
+    return 3;
+  }
+}
+
+//Click sur le bouton 0, 1, 2, 3 -> Heure, journee, semaine, mois
+function clickPeriodeBouton(i){
+  if (i == 0) $('#periode label:eq(0)').click();
+  else if (i == 1) $('#periode label:eq(1)').click();
+  else if (i == 2) $('#periode label:eq(2)').click();
+  else $('#periode label:eq(3)').click();
 }
 
 function toggleGraph(){
@@ -75,7 +117,6 @@ $('#unSeulGraph-Radio').click(function(e) {
 				function() {
 					$('#main-graph').highcharts().reflow();
 				});
-
 });
 
 $('#NGraph-Radio').click(function(e) {	
@@ -90,7 +131,6 @@ $('#NGraph-Radio').click(function(e) {
 				});
 });
 
-
 //idAAfficher est un element du DOM en l'occurence un objet label
 //Idem pour idAMasquer
 function toggleGraphById(idAAfficher, idAMasquer){
@@ -104,9 +144,6 @@ $('#periode label').click(function (e) {
     var selection = this.firstChild.nextSibling.id;
     switchPeriode(selection);
 });
-
-
-
 
 //Fonction permettant de changer de période
 //selection peut prendre les valeurs:
@@ -173,7 +210,6 @@ function initGraph(data, skipJauge){
     values.temperature.push([Date.parse(data[i].date), parseFloat(data[i].temperature)]);
   }
   
-
   //Voir Main.js
   graphsMultiCourbe.generateGraph(values);
 
