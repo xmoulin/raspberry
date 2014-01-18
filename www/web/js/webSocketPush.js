@@ -43,7 +43,7 @@ function onWSMessage(evt)
 	}
 	else if(data.action=='loadDataBouton')
 	{
-	
+		nextPeriode();
 	}
 	else if(data.action=='toggleBouton')
 	{
@@ -51,7 +51,7 @@ function onWSMessage(evt)
 	}
 	else if(data.action=='adminBouton')
 	{
-	
+		previousPeriode();
 	}
 }
 
