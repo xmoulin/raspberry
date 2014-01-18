@@ -36,6 +36,7 @@ if (!empty($periode)) {
 		$requete = $requete . " TO_DAYS(NOW()) - TO_DAYS(date) <= 6 ";
 	} else if ($periode === "Mois") {
 		$requete = $requete . " TO_DAYS(NOW()) - TO_DAYS(date) <= 29 ";
+		$limit=2000;
 	}
 }
 $requete = $requete . " Order by date desc";
@@ -52,7 +53,7 @@ if (!empty($offset)) {
 
 
 //on execute la requete
-//SELECT temperatureEau,temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere FROM indicateur where DATE_ADD( NOW( ) , INTERVAL -1 HOUR ) - date <= 0 Order by date desc[]
+//SELECT count(*) FROM indicateur where TO_DAYS(NOW()) - TO_DAYS(date) <= 29 Order by date desc
 //print($requete);
 $sth =  mysql_query($requete);
 
