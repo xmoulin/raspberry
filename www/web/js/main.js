@@ -117,69 +117,21 @@ $('#periode label').click(function (e) {
 function switchPeriode(selection) {
     switch (selection) {
       case "Heure":
-			Highcharts.theme = {
-					xAxis: {
-						labels : {
-							format: '{value:%H:%M }'
-						}
-						
-					}
-			};
-				   
-			// //Apply the theme
-		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
-
         $.get('../data-monitoring2.php?periode=Heure', function( data ) {
             initGraph(data,true);}
           );
         break;
       case "Journee":
-	  
-		Highcharts.theme = {
-				xAxis: {
-					labels : {
-						format: '{value:%H:%M }'
-					}
-					
-				}
-		};
-			   
-		// //Apply the theme
-		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
-		
         $.get('../data-monitoring2.php?periode=Journee', function( data ) {
             initGraph(data, true);}
           );
         break;
       case "Semaine":
-	  	Highcharts.theme = {
-				xAxis: {
-					labels : {
-						format: '{value: %d/%m/%Y }'
-					}					
-				}
-		}
-	  
-	  			// //Apply the theme
-		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
-
-	  
-        $.get('../data-monitoring2.php?periode=Semaine', function( data ) {
+          $.get('../data-monitoring2.php?periode=Semaine', function( data ) {
             initGraph(data,true);}
           );
         break;
       default:		
-		Highcharts.theme = {
-				xAxis: {
-					labels : {
-						format: '{value: %d/%m/%Y }'
-					}					
-				}
-		}
-	  
-	  	// //Apply the theme
-		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
-	  
         $.get('../data-monitoring2.php?periode=Mois', function( data ) {
             initGraph(data, true);}
           );

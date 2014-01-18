@@ -34,6 +34,7 @@ if (!empty($periode)) {
 		$requete = $requete . " TO_DAYS(NOW()) - TO_DAYS(date) <= 0 ";
 	} else if ($periode === "Semaine") {
 		$requete = $requete . " TO_DAYS(NOW()) - TO_DAYS(date) <= 6 ";
+		$limit=2000;
 	} else if ($periode === "Mois") {
 		$requete = $requete . " TO_DAYS(NOW()) - TO_DAYS(date) <= 29 ";
 		$limit=2000;
