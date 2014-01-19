@@ -84,6 +84,10 @@
               <label class="btn btn-default" id="NGraph-Radio">
                 <input type="radio" name="options" role="button"><span class="glyphicon glyphicon-th-large"></span>
               </label>
+			  <div class="or"></div>
+			  <label class="btn btn-default" id="Map-Radio">
+                <input type="radio" name="options" role="button"><span class="glyphicon glyphicon-globe"></span>
+              </label>
             </div>
           </div>
         </div>
@@ -111,6 +115,9 @@
               </div>
             </div>
           </div>
+		  <div class="tab-pane" id="map-pane">
+			<div id="map" style="height: 600px;min-width: 820px;"></div>
+		  </div>
       </div>
     </div>
   </div>
@@ -164,7 +171,8 @@
   <script src="./js/commonCharts.js"></script>
   <script src="./js/graphsJauge.js"></script>
   <script src="./js/webSocketPush.js"></script>
-
+  <script src="./js/map.js"></script>
+  
 </body>
 
 </html>

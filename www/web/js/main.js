@@ -26,10 +26,14 @@ $('#bt-NFC-Remi').click(function (e) {
 
 //Gestion du toggle entre courbe principale et petites courbes
 $('#unSeulGraph-Radio').click(function (e) {
-  toggleGraphById($("#unSeulGraph"), $("#NGraph"));
+  toggleGraphById($("#unSeulGraph"), $("#NGraph"),$("#map-pane"));
 });
 $('#NGraph-Radio').click(function (e) {
-  toggleGraphById($("#NGraph"), $("#unSeulGraph"));
+  toggleGraphById($("#NGraph"), $("#unSeulGraph"),$("#map-pane"));
+});
+$('#Map-Radio').click(function (e) {
+  toggleGraphById($("#map-pane"), $("#unSeulGraph"),$("#NGraph"));
+  initialize();
 });
 
 //On affiche JMP
@@ -105,8 +109,13 @@ function toggleGraph(){
   //On ne peut pas faire simplement un toogle sinon on perd l'etat du click sur le bouton de menu
   //On fait donc des click
   if ($("#unSeulGraph").is(':visible')) {
-    $('#NGraph-Radio').click();	
-  } else {
+		$('#NGraph-Radio').click();	
+  } 
+  else if ($("#NGraph").is(':visible'))
+  {
+      $('#Map-Radio').click();
+  }
+  else {
     $('#unSeulGraph-Radio').click();
   }
 }
@@ -133,8 +142,9 @@ $('#NGraph-Radio').click(function(e) {
 
 //idAAfficher est un element du DOM en l'occurence un objet label
 //Idem pour idAMasquer
-function toggleGraphById(idAAfficher, idAMasquer){
+function toggleGraphById(idAAfficher, idAMasquer,idAMasquer2){
     idAMasquer.hide();
+	idAMasquer2.hide();
     idAAfficher.show("Drop");
 }
  
@@ -220,8 +230,9 @@ function initGraph(data, skipJauge){
     lastValues.humidity.push(values.humidity[values.humidity.length -1][1]);
     lastValues.lumiere.push(values.lumiere[values.lumiere.length -1][1]);
     lastValues.temperature.push(values.temperature[values.temperature.length -1][1]);
-    //Voir Main.js  
+    //Voir Main.js
      graphsJauge.generateGraph(lastValues);
   }
   graphs.generateGraphBouchon(values);
+
 }
