@@ -50,9 +50,6 @@ if (!empty($offset)) {
 	$requete = $requete . " OFFSET $offset ";
 }
 
-
-
-
 //on execute la requete
 //SELECT count(*) FROM indicateur where TO_DAYS(NOW()) - TO_DAYS(date) <= 29 Order by date desc
 //print($requete);
@@ -62,6 +59,7 @@ $rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
+
 //print_r($rows);
 //On format le resultat. Soit tous les champs separée par une virgule, soit tous le flux en json
 if (!empty($champ)) {
@@ -75,8 +73,22 @@ if (!empty($champ)) {
 	}
 	echo json_encode($values);
 } else {
-	print json_encode($rows);
+	//if en lien avec le patch ci-dessous
+	if (!empty($rows[0])) {
+		print json_encode($rows);
+	}
+	//HACK: Patch pour afficher qd meme qlq données dans tous les cas -> Pour une demo
+	else {
+		$requete = "SELECT temperatureEau,temperature, humidity, date, sonMin, sonMax, sonMoy, gaz, lumiere FROM indicateur Order by date desc LIMIT 50";
+		$sth =  mysql_query($requete);
+		$rows2 = array();
+		while($r = mysql_fetch_assoc($sth)) {
+		    $rows2[] = $r;
+		}
+		print json_encode($rows2);
+	}
 }
+
 
 // on ferme la connexion à mysql 
 mysql_close(); 
