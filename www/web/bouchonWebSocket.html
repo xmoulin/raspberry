@@ -56,14 +56,20 @@ function init(){
 	//		socket.send(JSON.stringify(actionSend));
 	//}
 	//,4000);
+
+	var temperature = 22;
+	var son = 40;
+	var sonMax = 60;
+	var humidite = 50;
+	var lumiere = 120;
 	
 	
 	setInterval(function() {
-		var temperature = 5 + Math.round(Math.random() * 30);
-		var son = Math.round(Math.random() * 80);
-		var sonMax = Math.round(Math.random() * 80);
-		var humidite = 10 + Math.round(Math.random() * 80);
-		var lumiere = 0 + Math.round(Math.random() * 200);
+		temperature = temperature + Math.round(Math.random() * 6) -2; //ajout de -2 à 2 
+		son = son + Math.round(Math.random() * 10) - 4 ; //de -4 à 4
+		sonMax = sonMax + Math.round(Math.random() * 10) -4;
+		humidite = humidite + Math.round(Math.random() * 6) - 2;
+		lumiere = lumiere + Math.round(Math.random() * 10) - 4;
 		var date = (new Date()).getTime(); // current time
 		
 		var send = {
